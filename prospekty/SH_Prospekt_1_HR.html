@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Shared Hotels — Program Benefitu Wypoczynkowego</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --teal:#1a7a5c;--td:#0d5040;--tl:#e6f4ef;--tm:#4db896;
+  --sand:#f7f3ec;--sd:#ede6d8;--ch:#1a1a18;--stone:#6e6e66;
+  --w:#fefefe;--amb:#b87333;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--fb);background:#e0e0e0;color:var(--ch);}
+
+/* ── STRONY ── */
+.page{
+  width:210mm; min-height:297mm;
+  margin:10mm auto; background:var(--w);
+  display:flex; flex-direction:column;
+  overflow:hidden; position:relative;
+}
+
+/* ── HERO (ciemne tło jak www) ── */
+.hero{
+  background:var(--ch); position:relative;
+  padding:2.8rem 2.6rem 2.4rem; flex-shrink:0;
+}
+.hero::before{
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(26,122,92,.22) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.6rem;}
+.hero-logo{font-family:var(--fd);font-size:1.3rem;font-weight:600;color:var(--w);letter-spacing:.06em;}
+.hero-tag{font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);background:rgba(77,184,150,.12);border:1px solid rgba(77,184,150,.3);padding:.3rem .8rem;}
+.hero-eyebrow{font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--tm);margin-bottom:.8rem;}
+.hero-line{width:36px;height:1px;background:rgba(255,255,255,.18);margin:.9rem 0;}
+.hero-h{font-family:var(--fd);font-size:2.4rem;font-weight:300;color:var(--w);line-height:1.1;letter-spacing:-.01em;margin-bottom:.7rem;}
+.hero-h em{font-style:italic;color:var(--tm);}
+.hero-sub{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.8;max-width:480px;font-weight:300;}
+
+/* ── PAIN (piasek, numery dekoracyjne jak www) ── */
+.pain-section{background:var(--sand);padding:1.8rem 2.6rem 1.4rem;flex-shrink:0;}
+.section-eyebrow{font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--sd);}
+.pain-card{background:var(--sand);padding:1.4rem 1.2rem 1.2rem;position:relative;}
+.pain-card:hover{background:var(--w);}
+.pain-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--teal);transform:scaleX(0);transition:transform .3s;transform-origin:left;}
+.pain-card:hover::after{transform:scaleX(1);}
+.pain-num{font-family:var(--fd);font-size:3.5rem;font-weight:300;color:var(--sd);line-height:1;margin-bottom:.8rem;}
+.pain-title{font-size:.85rem;font-weight:500;color:var(--ch);margin-bottom:.5rem;line-height:1.3;}
+.pain-text{font-size:.75rem;color:var(--stone);line-height:1.65;border-top:1px solid var(--sd);padding-top:.6rem;margin-top:.4rem;}
+
+/* ── STEPS (biały, jak sekcja "jak to działa" na www) ── */
+.how-section{background:var(--w);padding:1.6rem 2.6rem;flex:1;}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2.5rem;margin-top:.8rem;}
+.step{display:flex;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--sd);}
+.step:last-child{border-bottom:none;}
+.step-num{width:28px;height:28px;background:var(--ch);color:var(--w);font-family:var(--fd);font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+.step-body{}
+.step-title{font-size:.78rem;font-weight:500;color:var(--ch);margin-bottom:.2rem;line-height:1.3;}
+.step-desc{font-size:.72rem;color:var(--stone);line-height:1.55;}
+
+/* ── STRONA 2 ── */
+/* Korzyści */
+.benefits-section{background:var(--w);padding:1.8rem 2.6rem 1.4rem;flex-shrink:0;}
+.benefits-h{font-family:var(--fd);font-size:1.5rem;font-weight:300;color:var(--ch);line-height:1.2;margin-bottom:1rem;}
+.benefits-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 3rem;}
+.benefit-item{display:flex;gap:.7rem;align-items:flex-start;padding:.45rem 0;border-bottom:1px solid var(--sd);}
+.benefit-item:last-child{border-bottom:none;}
+.benefit-arrow{color:var(--teal);font-size:.75rem;flex-shrink:0;margin-top:.15rem;}
+.benefit-text{font-size:.78rem;color:var(--ch);line-height:1.5;}
+
+/* ESG blok (jak how-note na www) */
+.esg-block{background:var(--tl);border-left:3px solid var(--teal);padding:1rem 1.4rem;margin:1rem 2.6rem 0;}
+.esg-label{font-size:.6rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:.4rem;}
+.esg-text{font-family:var(--fd);font-size:.95rem;color:var(--td);line-height:1.6;font-style:italic;}
+.esg-sub{font-size:.72rem;color:var(--stone);margin-top:.3rem;font-style:normal;font-family:var(--fb);}
+
+/* CTA (ciemne tło) */
+.cta-section{background:var(--td);padding:1.6rem 2.6rem;margin-top:auto;flex-shrink:0;}
+.cta-inner{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;}
+.cta-left{}
+.cta-eyebrow{font-size:.6rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);margin-bottom:.5rem;}
+.cta-h{font-family:var(--fd);font-size:1.5rem;font-weight:300;color:var(--w);margin-bottom:.5rem;}
+.cta-sub{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.6;}
+.cta-btn{display:inline-block;background:var(--teal);color:var(--w);padding:.7rem 1.8rem;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-top:.8rem;}
+.cta-right{text-align:right;}
+.cta-name{font-family:var(--fd);font-size:1.1rem;color:var(--w);margin-bottom:.2rem;}
+.cta-role{font-size:.7rem;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-bottom:.5rem;}
+.cta-contact{font-size:.75rem;color:var(--tm);}
+.cta-web{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.2rem;}
+
+/* Separator */
+.sep{height:1px;background:var(--sd);margin:0 2.6rem;}
+
+/* Stopka disclaimer */
+.disclaimer{padding:.6rem 2.6rem;margin-top:auto;}
+.disclaimer p{font-size:.62rem;color:var(--stone);line-height:1.6;font-style:italic;text-align:center;}
+
+/* ── PRINT ── */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  body{background:white;}
+  .page{margin:0;width:100%;page-break-after:always;box-shadow:none;}
+  .page:last-child{page-break-after:auto;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ STRONA 1 ══════════════ -->
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-logo">SHARED HOTELS</div>
+        <div class="hero-tag">Dla działów HR · 1000+ pracowników</div>
+      </div>
+      <div class="hero-eyebrow">Program benefitu wypoczynkowego</div>
+      <div class="hero-h">Benefit, na który pracownicy<br><em>czekają każdego roku</em></div>
+      <div class="hero-line"></div>
+      <div class="hero-sub">Shared Hotels zamienia budżet socjalny firmy w realny, coroczny benefit wypoczynkowy dla pracowników — bez tego, by firma musiała prowadzić hotel.</div>
+    </div>
+  </div>
+
+  <!-- BÓLACZKI -->
+  <div class="pain-section">
+    <div class="section-eyebrow">Trzy problemy, które rozwiązujemy</div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-num">01</div>
+        <div class="pain-title">Rotacja i brak retencji</div>
+        <div class="pain-text">Większość benefitów istnieje "na papierze". Potrzebny jest benefit, który pracownik co roku realnie wykorzystuje i na który czeka — bo jest cykliczny.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">02</div>
+        <div class="pain-title">Sezonowość urlopów</div>
+        <div class="pain-text">Wszyscy chcą urlop w lipcu–sierpniu. Nasz program dostępny min. 6 miesięcy roku (marzec–listopad) — pracownicy wyjeżdżają równomiernie.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">03</div>
+        <div class="pain-title">Wellbeing bez konkretu</div>
+        <div class="pain-text">Dyrektywa Omnibus I: firmy 1000+ pracowników raportują ESG od 2028. Coroczny wypoczynek to mierzalny konkret do filaru S — nie deklaracja.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAK DZIAŁA -->
+  <div class="how-section">
+    <div class="section-eyebrow">Jak to działa</div>
+    <div class="how-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Pracodawca przystępuje do programu</div>
+          <div class="step-desc">Finansowanie przez ZFŚS — bez angażowania własnego budżetu operacyjnego firmy.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">SH zabezpiecza bazę hotelową</div>
+          <div class="step-desc">Pod konkretne zamówienie pracodawcy. Hotel kupowany jest pod zamówienie — nie "na zapas".</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Wyspecjalizowany operator prowadzi hotel</div>
+          <div class="step-desc">Firma nie staje się hotelarzem. Ryzyko operacyjne po stronie operatora, nie pracodawcy.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Pracownicy korzystają co roku</div>
+          <div class="step-desc">Coroczny pobyt przez min. 6 miesięcy roku. Benefit, który pracownik realnie planuje i realizuje.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /strona 1 -->
+
+
+<!-- ══════════════ STRONA 2 ══════════════ -->
+<div class="page">
+
+  <!-- KORZYŚCI DLA HR -->
+  <div class="benefits-section">
+    <div class="section-eyebrow">Co zyskuje dział HR</div>
+    <div class="benefits-h">Osiem powodów, dla których<br>warto wnieść temat do zarządu</div>
+    <div class="benefits-cols">
+      <div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>Eliminacja sezonowości urlopów</strong> — pracownicy wyjeżdżają równomiernie przez cały sezon, nie w jednym szczycie letnim.</div></div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>Benefit o wysokim realnym użyciu</strong> — coroczny wyjazd, który pracownik faktycznie realizuje i na który czeka.</div></div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>Retencja i stabilizacja zatrudnienia</strong> — cykliczny, odczuwalny benefit buduje przywiązanie do pracodawcy.</div></div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>Mocny argument rekrutacyjny</strong> — wyróżnik na tle konkurencji w rynku kandydata.</div></div>
+      </div>
+      <div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>Wellbeing i work-life balance</strong> — realna regeneracja pracowników, poprawa zdrowia fizycznego i psychicznego.</div></div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>HR nie zarządza hotelem</strong> — program prowadzi wyspecjalizowany operator. Zero dodatkowej pracy dla HR.</div></div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>Finansowanie z ZFŚS</strong> — pracodawca nie angażuje bezpośrednio własnego budżetu operacyjnego.</div></div>
+        <div class="benefit-item"><div class="benefit-arrow">→</div><div class="benefit-text"><strong>ESG — konkret do raportu</strong> — mierzalny dobrostan pracowników zamiast ogólnych deklaracji.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ESG BLOK -->
+  <div class="esg-block">
+    <div class="esg-label">ESG · Filar Społeczny (S)</div>
+    <div class="esg-text">"ESG przestaje być kosztem — staje się benefitem."</div>
+    <div class="esg-sub">Rafał Rudzik, Dyrektor ds. Zrównoważonego Rozwoju, Żabka Group · Dyrektywa Omnibus I: firmy 1000+ pracowników, pierwsze raporty niefinansowe od 2028.</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <div class="cta-eyebrow">Następny krok</div>
+        <div class="cta-h">Umów 30-minutową rozmowę</div>
+        <div class="cta-sub">Pokażemy jak program działa dla firmy Waszej wielkości.<br>Bez zobowiązań — pierwsza rozmowa to prezentacja modelu i odpowiedź na pytania.</div>
+        <div class="cta-btn" style="cursor:default;">→ &nbsp; Umów rozmowę</div>
+      </div>
+      <div class="cta-right">
+        <div class="cta-name">Adam Legutko</div>
+        <div class="cta-role">Partner sprzedażowy · Shared Hotels</div>
+        <div class="cta-contact">adam.legutko@ak88.pl</div>
+        <div class="cta-web">shared-hotels.pl</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <p>Materiał poglądowy B2B dla pracodawców · Nie stanowi oferty handlowej · Szczegóły finansowe i cenowe dostępne na spotkaniu po podpisaniu NDA · Wskaźniki ilustracyjne · Shared Hotels / AK88 · Czerwiec 2026</p>
+  </div>
+
+</div><!-- /strona 2 -->
+
+</body>
+</html>
