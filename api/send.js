@@ -1,16 +1,20 @@
 // ==========================================================================
 //  Shared Hotels — obsługa formularzy na Vercel (funkcja serverless, Node.js)
-//  Wysyłka przez Resend (https://resend.com) — darmowy plan wystarcza na start.
+//  Wysyłka przez SMTP OVH (nodemailer).
 //
 //  WYMAGANE w Vercel → Settings → Environment Variables:
-//    RESEND_API_KEY   = re_xxx           (klucz z panelu Resend)
-//    MAIL_TO          = office@sharedhotels.com
-//    MAIL_FROM        = "Shared Hotels <no-reply@sharedhotels.com>"   (domena zweryfikowana w Resend)
+//    SMTP_HOST = ssl0.ovh.net           (MX Plan; Email Pro: pro*.mail.ovh.net)
+//    SMTP_PORT = 465                    (465 = SSL, 587 = STARTTLS)
+//    SMTP_USER = no-reply@sharedhotels.com   (pełny adres skrzynki OVH)
+//    SMTP_PASS = ********               (hasło skrzynki)
+//    MAIL_TO   = office@sharedhotels.com
+//    MAIL_FROM = "Shared Hotels <no-reply@sharedhotels.com>"  (= SMTP_USER lub jego alias)
 //
 //  We froncie (index.html) ustaw:  const MAIL_ENDPOINT = '/api/send';
 // ==========================================================================
 const fs = require('fs');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 const PROSPEKTY = ['SH_Prospekt_1_HR.html', 'SH_Prospekt_2_Informator.html'];
 
@@ -20,22 +24,37 @@ function esc(v) {
 }
 function clean(v){ return String(v == null ? '' : v).replace(/[\r\n]+/g,' ').trim(); }
 
-async function resendSend(payload) {
-  if (!process.env.RESEND_API_KEY) { console.error('[resend] brak zmiennej RESEND_API_KEY'); return false; }
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + process.env.RESEND_API_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
+// Transport tworzony raz i reużywany między wywołaniami (warm start).
+let _tx = null;
+function getTransporter() {
+  if (_tx) return _tx;
+  const port = Number(process.env.SMTP_PORT || 465);
+  _tx = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,        // ssl0.ovh.net
+    port,
+    secure: port === 465,               // 465 = SSL/TLS, 587 = STARTTLS
+    requireTLS: port !== 465,
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000
   });
-  if (!r.ok) {
-    let detail = '';
-    try { detail = await r.text(); } catch (_) {}
-    console.error('[resend] HTTP ' + r.status + ' from=' + JSON.stringify(payload.from) + ' to=' + JSON.stringify(payload.to) + ' :: ' + detail);
+  return _tx;
+}
+
+async function mailSend(msg) {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.error('[mail] brak konfiguracji SMTP (SMTP_HOST/SMTP_USER/SMTP_PASS)');
+    return false;
   }
-  return r.ok;
+  try {
+    await getTransporter().sendMail(msg);
+    return true;
+  } catch (e) {
+    console.error('[mail] błąd SMTP from=' + JSON.stringify(msg.from) + ' to=' + JSON.stringify(msg.to) +
+      ' :: ' + (e && e.message ? e.message : e));
+    return false;
+  }
 }
 
 module.exports = async (req, res) => {
@@ -62,12 +81,12 @@ module.exports = async (req, res) => {
         <p><b>Imię:</b> ${esc(imie)}<br><b>E-mail:</b> ${esc(email)}<br><b>Firma:</b> ${esc(firma)}<br>
         <b>Stanowisko:</b> ${esc(clean(b.stanowisko))}<br><b>Liczba pracowników:</b> ${esc(clean(b.pracownicy))}<br>
         <b>Obszar:</b> ${esc(clean(b.obszar))}</p>`;
-      await resendSend({ from: FROM, to: [TO], reply_to: email, subject: `Prospekt — ${firma} (${imie})`, html: admin });
+      await mailSend({ from: FROM, to: TO, replyTo: email, subject: `Prospekt — ${firma} (${imie})`, html: admin });
 
       const attachments = PROSPEKTY.map(name => {
         try {
           const p = path.join(process.cwd(), 'prospekty', name);
-          return { filename: name, content: fs.readFileSync(p).toString('base64') };
+          return { filename: name, content: fs.readFileSync(p) };
         } catch(_) { return null; }
       }).filter(Boolean);
 
@@ -76,7 +95,7 @@ module.exports = async (req, res) => {
         <p>dziękujemy za zainteresowanie programem <b>Shared Hotels</b>. W załączniku przesyłamy prospekt informacyjny oraz informator z modelem działania programu.</p>
         <p>Skontaktujemy się z Tobą w ciągu 24–48 godzin.</p>
         <p>Pozdrawiamy,<br>Zespół Shared Hotels</p></div>`;
-      const ok = await resendSend({ from: FROM, to: [email], reply_to: TO, subject: 'Twój prospekt Shared Hotels', html: client, attachments });
+      const ok = await mailSend({ from: FROM, to: email, replyTo: TO, subject: 'Twój prospekt Shared Hotels', html: client, attachments });
       res.status(ok ? 200 : 500).json({ ok });
       return;
     }
@@ -86,7 +105,7 @@ module.exports = async (req, res) => {
       const admin = `<h2>Nowa prośba o konsultację telefoniczną</h2>
         <p><b>Imię:</b> ${esc(imie)}<br><b>E-mail:</b> ${esc(email)}<br><b>Telefon:</b> ${esc(telefon)}<br>
         <b>Firma:</b> ${esc(firma)}<br><b>Preferowana data:</b> ${esc(data)}<br><b>Pora dnia:</b> ${esc(pora)}</p>`;
-      await resendSend({ from: FROM, to: [TO], reply_to: email, subject: `Konsultacja — ${imie} (${data}, ${pora})`, html: admin });
+      await mailSend({ from: FROM, to: TO, replyTo: email, subject: `Konsultacja — ${imie} (${data}, ${pora})`, html: admin });
 
       const client = `<div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#1a1a18">
         <p>Dzień dobry ${esc(imie)},</p>
@@ -94,7 +113,7 @@ module.exports = async (req, res) => {
         <p style="font-size:17px"><b>${esc(data)}</b><br>Pora dnia: <b>${esc(pora)}</b></p>
         <p>Rozmowa jest niezobowiązująca i potrwa ok. 20 minut. Gdyby termin wymagał zmiany — odpisz na tę wiadomość.</p>
         <p>Do usłyszenia,<br>Zespół Shared Hotels</p></div>`;
-      const ok = await resendSend({ from: FROM, to: [email], reply_to: TO, subject: 'Potwierdzenie rozmowy — Shared Hotels', html: client });
+      const ok = await mailSend({ from: FROM, to: email, replyTo: TO, subject: 'Potwierdzenie rozmowy — Shared Hotels', html: client });
       res.status(ok ? 200 : 500).json({ ok });
       return;
     }

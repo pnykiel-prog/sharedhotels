@@ -4,7 +4,8 @@
   "trailingSlash": false,
   "functions": {
     "api/send.js": {
-      "includeFiles": "prospekty/**"
+      "includeFiles": "prospekty/**",
+      "maxDuration": 30
     }
   }
 }
