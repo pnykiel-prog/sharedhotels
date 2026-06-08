@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 
-const PROSPEKTY = ['SH_Prospekt_1_HR.html', 'SH_Prospekt_2_Informator.html'];
+const PROSPEKTY = ['SH_Prospekt_1_HR.pdf', 'SH_Prospekt_2_Informator.pdf'];
 
 function esc(v) {
   return String(v == null ? '' : v).replace(/[&<>"']/g, c =>
