@@ -21,6 +21,7 @@ function esc(v) {
 function clean(v){ return String(v == null ? '' : v).replace(/[\r\n]+/g,' ').trim(); }
 
 async function resendSend(payload) {
+  if (!process.env.RESEND_API_KEY) { console.error('[resend] brak zmiennej RESEND_API_KEY'); return false; }
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -29,6 +30,11 @@ async function resendSend(payload) {
     },
     body: JSON.stringify(payload)
   });
+  if (!r.ok) {
+    let detail = '';
+    try { detail = await r.text(); } catch (_) {}
+    console.error('[resend] HTTP ' + r.status + ' from=' + JSON.stringify(payload.from) + ' to=' + JSON.stringify(payload.to) + ' :: ' + detail);
+  }
   return r.ok;
 }
 
@@ -95,6 +101,7 @@ module.exports = async (req, res) => {
 
     res.status(400).json({ ok:false, msg:'Nieznany typ formularza' });
   } catch (e) {
+    console.error('[send] wyjątek:', e && e.stack ? e.stack : e);
     res.status(500).json({ ok:false, msg:'Błąd serwera' });
   }
 };
