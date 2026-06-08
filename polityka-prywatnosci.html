@@ -4,73 +4,344 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Polityka prywatności — Shared Hotels</title>
-<meta name="robots" content="noindex">
+<meta name="description" content="Polityka prywatności serwisu Shared Hotels — zasady przetwarzania danych osobowych zgodnie z RODO (RODO / GDPR).">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --teal:#1a7a5c;--teal-dark:#0d5040;--teal-deep:#08362a;--teal-light:#e6f4ef;
+  --sand:#f7f3ec;--sand-dark:#ece4d6;--sand-deep:#ddd2bd;
+  --charcoal:#1a1a18;--stone:#6e6e66;--stone-light:#9a9488;
+  --white:#fefefe;--gold:#b08d4e;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --font-mono:'DM Mono',ui-monospace,monospace;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--white);color:var(--charcoal);line-height:1.7;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--teal);color:var(--white);}
+a{color:var(--teal-dark);text-decoration:none;border-bottom:1px solid rgba(13,80,64,.25);transition:border-color .2s,color .2s;}
+a:hover{color:var(--teal);border-color:var(--teal);}
 
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'DM Sans',system-ui,sans-serif;background:#f7f3ec;color:#1a1a18;line-height:1.7;}
-    nav{background:#1a1a18;padding:1rem 6%;display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;font-weight:600;color:#fff;text-decoration:none;}
-    .nav-back{font-size:.75rem;color:rgba(255,255,255,.5);text-decoration:none;letter-spacing:.08em;}
-    .nav-back:hover{color:#4db896;}
-    .content{max-width:760px;margin:0 auto;padding:5rem 2rem 6rem;}
-    h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:2.8rem;font-weight:300;margin-bottom:1.5rem;line-height:1.15;}
-    h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-weight:400;margin:2.5rem 0 .8rem;color:#1a7a5c;}
-    p{font-size:.9rem;margin-bottom:1rem;color:#4a4a42;}
-    .placeholder-box{background:#fff;border:2px dashed #1a7a5c;border-radius:2px;padding:2.5rem;margin:2rem 0;text-align:center;}
-    .placeholder-box p{color:#1a7a5c;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500;margin:0;}
-    .date{font-size:.75rem;color:#9e9e92;margin-bottom:2rem;}
-    footer{background:#111110;padding:1.5rem 6%;text-align:center;}
-    footer a{font-size:.72rem;color:rgba(255,255,255,.3);text-decoration:none;margin:0 1rem;}
-    footer a:hover{color:rgba(255,255,255,.6);}
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(254,254,254,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--sand-dark);padding:0 6%;height:72px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:.7rem;border:none;}
+.nav-emblem{height:48px;width:auto;display:block;flex-shrink:0;}
+.nav-logo-text{font-family:var(--font-display);font-size:1.3rem;font-weight:600;color:var(--teal-dark);letter-spacing:.04em;white-space:nowrap;}
+.nav-back{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);border:none;display:flex;align-items:center;gap:.5rem;}
+.nav-back:hover{color:var(--teal-dark);}
 
+/* HEADER */
+header.doc-head{background:var(--charcoal);color:var(--white);padding:4.5rem 6% 3.8rem;position:relative;overflow:hidden;}
+header.doc-head::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 18% 0%,rgba(26,122,92,.22) 0%,transparent 62%);pointer-events:none;}
+.doc-head-inner{position:relative;max-width:1100px;margin:0 auto;}
+.doc-eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-light);opacity:.85;margin-bottom:1.2rem;}
+.doc-title{font-family:var(--font-display);font-size:clamp(2.6rem,5vw,4rem);font-weight:300;line-height:1.05;letter-spacing:-.01em;margin-bottom:1.3rem;}
+.doc-title em{font-style:italic;color:var(--teal-light);}
+.doc-meta{display:flex;flex-wrap:wrap;gap:1.4rem 2.4rem;margin-top:1.8rem;font-size:.82rem;color:rgba(255,255,255,.55);}
+.doc-meta b{color:rgba(255,255,255,.8);font-weight:500;}
+.doc-meta-line{width:34px;height:1px;background:rgba(255,255,255,.2);margin-bottom:1.6rem;}
+
+/* LAYOUT */
+.doc-wrap{max-width:1100px;margin:0 auto;padding:3.5rem 6% 5rem;display:grid;grid-template-columns:230px 1fr;gap:4rem;align-items:start;}
+.toc{position:sticky;top:96px;}
+.toc-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone-light);margin-bottom:1rem;}
+.toc ol{list-style:none;counter-reset:toc;}
+.toc li{counter-increment:toc;margin-bottom:.1rem;}
+.toc a{display:flex;gap:.6rem;font-size:.8rem;line-height:1.4;color:var(--stone);border:none;padding:.4rem 0;}
+.toc a::before{content:counter(toc,decimal-leading-zero);font-family:var(--font-mono);font-size:.66rem;color:var(--sand-deep);padding-top:.1rem;}
+.toc a:hover{color:var(--teal-dark);}
+
+.doc-body{max-width:760px;}
+.doc-intro{font-family:var(--font-display);font-size:1.5rem;font-weight:300;line-height:1.5;color:var(--charcoal);margin-bottom:2.6rem;}
+.doc-intro em{font-style:italic;color:var(--teal-dark);}
+
+section.clause{counter-increment:clause;padding-top:2.6rem;margin-top:2.6rem;border-top:1px solid var(--sand-dark);scroll-margin-top:96px;}
+section.clause:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.clause-h{display:flex;gap:1rem;align-items:baseline;margin-bottom:1.2rem;}
+.clause-num{font-family:var(--font-mono);font-size:.8rem;color:var(--teal);padding-top:.2rem;flex-shrink:0;}
+.clause-h h2{font-family:var(--font-display);font-size:1.7rem;font-weight:500;line-height:1.2;letter-spacing:-.01em;color:var(--charcoal);}
+.doc-body p{margin-bottom:1.1rem;color:#34332e;}
+.doc-body h3{font-size:.95rem;font-weight:500;color:var(--charcoal);margin:1.6rem 0 .7rem;}
+.doc-body ul{list-style:none;margin:0 0 1.2rem;}
+.doc-body ul li{position:relative;padding-left:1.4rem;margin-bottom:.6rem;color:#34332e;}
+.doc-body ul li::before{content:'';position:absolute;left:0;top:.65rem;width:7px;height:1px;background:var(--teal);}
+.doc-body strong{font-weight:500;color:var(--charcoal);}
+
+/* CONTROLLER CARD */
+.controller{background:var(--sand);border:1px solid var(--sand-dark);border-left:3px solid var(--teal);padding:1.8rem 2rem;margin:.4rem 0 1.4rem;}
+.controller-name{font-family:var(--font-display);font-size:1.5rem;font-weight:500;color:var(--teal-dark);margin-bottom:1.1rem;line-height:1.2;}
+.controller-grid{display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.4rem;font-size:.86rem;}
+.controller-grid dt{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);padding-top:.18rem;}
+.controller-grid dd{color:var(--charcoal);}
+.controller-grid dd a{font-weight:500;}
+
+/* LEGAL BASIS TABLE */
+.basis-table{border:1px solid var(--sand-dark);margin:.4rem 0 1.4rem;font-size:.84rem;}
+.basis-row{display:grid;grid-template-columns:1.4fr 1fr;border-bottom:1px solid var(--sand-dark);}
+.basis-row:last-child{border-bottom:none;}
+.basis-row.head{background:var(--sand);font-family:var(--font-mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);}
+.basis-cell{padding:.9rem 1.1rem;}
+.basis-cell:first-child{border-right:1px solid var(--sand-dark);}
+.basis-cell b{font-weight:500;color:var(--charcoal);}
+.basis-cell .art{display:inline-block;font-family:var(--font-mono);font-size:.7rem;color:var(--teal-dark);background:var(--teal-light);padding:.1rem .45rem;margin-top:.35rem;}
+
+/* RIGHTS GRID */
+.rights{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--sand-dark);border:1px solid var(--sand-dark);margin:.4rem 0 1.4rem;}
+.right-item{background:var(--white);padding:1.1rem 1.2rem;}
+.right-item h4{font-size:.86rem;font-weight:500;color:var(--charcoal);margin-bottom:.3rem;}
+.right-item p{font-size:.78rem;color:var(--stone);margin:0;line-height:1.55;}
+
+/* CALLOUT */
+.callout{background:var(--teal-light);border:1px solid rgba(26,122,92,.18);padding:1.3rem 1.6rem;margin:.4rem 0 1.4rem;font-size:.88rem;color:var(--teal-deep);}
+.callout strong{color:var(--teal-deep);}
+
+/* FOOTER */
+footer{background:#111110;padding:2.4rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--font-display);font-size:1rem;color:rgba(255,255,255,.32);}
+.footer-links{display:flex;gap:2rem;}
+.footer-links a{font-size:.78rem;color:rgba(255,255,255,.32);border:none;letter-spacing:.04em;}
+.footer-links a:hover{color:rgba(255,255,255,.7);}
+
+@media(max-width:880px){
+  .doc-wrap{grid-template-columns:1fr;gap:2rem;padding-top:2.5rem;}
+  .toc{position:static;border:1px solid var(--sand-dark);padding:1.4rem 1.6rem;background:var(--sand);}
+  .rights{grid-template-columns:1fr;}
+  .nav-logo-text{display:none;}
+}
+@media(max-width:560px){
+  .basis-row{grid-template-columns:1fr;}
+  .basis-cell:first-child{border-right:none;border-bottom:1px solid var(--sand-dark);}
+  .controller-grid{grid-template-columns:1fr;gap:.15rem .4rem;}
+  .controller-grid dt{padding-top:.6rem;}
+}
+</style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="/">Shared Hotels</a>
-  <a class="nav-back" href="/">← Wróć do strony głównej</a>
+  <a class="nav-logo" href="index.html" aria-label="Shared Hotels — strona główna">
+    <img class="nav-emblem" src="assets/sh-emblem.png" alt="">
+    <span class="nav-logo-text">Shared Hotels</span>
+  </a>
+  <a class="nav-back" href="index.html">← Powrót na stronę główną</a>
 </nav>
 
-<div class="content">
-  <h1>Polityka prywatności</h1>
-  <p class="date">Data ostatniej aktualizacji: do uzupełnienia przez Paweł Nykiel</p>
-
-  <div class="placeholder-box">
-    <p>⚠ Treść do uzupełnienia przez Paweł Nykiel — administratora danych</p>
+<header class="doc-head">
+  <div class="doc-head-inner">
+    <p class="doc-eyebrow">Ochrona danych osobowych · RODO / GDPR</p>
+    <h1 class="doc-title">Polityka <em>prywatności</em></h1>
+    <div class="doc-meta-line"></div>
+    <div class="doc-meta">
+      <span><b>Ostatnia aktualizacja:</b> 8 czerwca 2026</span>
+      <span><b>Obowiązuje od:</b> 8 czerwca 2026</span>
+      <span><b>Zakres:</b> serwis Shared Hotels</span>
+    </div>
   </div>
+</header>
 
-  <h2>1. Administrator danych osobowych</h2>
-  <p>[Do uzupełnienia: nazwa podmiotu, adres, NIP, KRS]</p>
+<div class="doc-wrap">
 
-  <h2>2. Zakres zbieranych danych</h2>
-  <p>[Do uzupełnienia: jakie dane zbieramy przez formularz kontaktowy]</p>
+  <aside class="toc">
+    <p class="toc-label">Spis treści</p>
+    <ol>
+      <li><a href="#s1">Administrator danych</a></li>
+      <li><a href="#s2">Kontakt w sprawie danych</a></li>
+      <li><a href="#s3">Jakie dane zbieramy</a></li>
+      <li><a href="#s4">Cele i podstawy prawne</a></li>
+      <li><a href="#s5">Okres przechowywania</a></li>
+      <li><a href="#s6">Odbiorcy danych</a></li>
+      <li><a href="#s7">Przekazywanie poza EOG</a></li>
+      <li><a href="#s8">Twoje prawa</a></li>
+      <li><a href="#s9">Dobrowolność podania danych</a></li>
+      <li><a href="#s10">Profilowanie</a></li>
+      <li><a href="#s11">Pliki cookies</a></li>
+      <li><a href="#s12">Bezpieczeństwo</a></li>
+      <li><a href="#s13">Zmiany polityki</a></li>
+    </ol>
+  </aside>
 
-  <h2>3. Cel przetwarzania danych</h2>
-  <p>[Do uzupełnienia: obsługa zapytań, wysyłka prospektu, kontakt handlowy]</p>
+  <main class="doc-body">
+    <p class="doc-intro">Prywatność osób korzystających z serwisu Shared Hotels traktujemy priorytetowo. Poniżej wyjaśniamy — <em>w sposób przejrzysty i zgodny z RODO</em> — jakie dane zbieramy, w jakim celu, na jakiej podstawie prawnej oraz jakie prawa Ci przysługują.</p>
 
-  <h2>4. Podstawa prawna</h2>
-  <p>[Do uzupełnienia: art. 6 ust. 1 lit. a/b/f RODO]</p>
+    <section class="clause" id="s1">
+      <div class="clause-h"><span class="clause-num">01</span><h2>Administrator danych osobowych</h2></div>
+      <p>Administratorem Twoich danych osobowych — czyli podmiotem decydującym o celach i sposobach ich przetwarzania — jest:</p>
+      <div class="controller">
+        <div class="controller-name">Fundacja DivideYou</div>
+        <dl class="controller-grid">
+          <dt>Siedziba</dt><dd>ul. Fryderyka Szopena 27 lok. 1, 35-055 Rzeszów</dd>
+          <dt>KRS</dt><dd>0000690646</dd>
+          <dt>NIP</dt><dd>5170383586</dd>
+          <dt>REGON</dt><dd>368007741</dd>
+          <dt>E-mail</dt><dd><a href="mailto:office@divideyou.com">office@divideyou.com</a></dd>
+          <dt>Telefon</dt><dd><a href="tel:+48570001011">570 001 011</a></dd>
+        </dl>
+      </div>
+      <p>W dalszej części niniejszej Polityki Administrator określany jest również jako „<strong>my</strong>", „<strong>nas</strong>" lub „<strong>Shared Hotels</strong>".</p>
+    </section>
 
-  <h2>5. Okres przechowywania danych</h2>
-  <p>[Do uzupełnienia]</p>
+    <section class="clause" id="s2">
+      <div class="clause-h"><span class="clause-num">02</span><h2>Kontakt w sprawie danych osobowych</h2></div>
+      <p>We wszystkich sprawach związanych z przetwarzaniem danych osobowych oraz realizacją przysługujących Ci praw możesz skontaktować się z nami:</p>
+      <ul>
+        <li>e-mailowo: <a href="mailto:office@divideyou.com">office@divideyou.com</a></li>
+        <li>telefonicznie: <a href="tel:+48570001011">570 001 011</a></li>
+        <li>listownie: na adres siedziby wskazany w punkcie 1.</li>
+      </ul>
+      <p>Nie powołaliśmy Inspektora Ochrony Danych (IOD), ponieważ nie wymagają tego przepisy RODO. Powyższy kontakt jest dedykowanym punktem kontaktowym w sprawach ochrony danych.</p>
+    </section>
 
-  <h2>6. Prawa osoby, której dane dotyczą</h2>
-  <p>[Do uzupełnienia: prawo dostępu, sprostowania, usunięcia, ograniczenia, przenoszenia, sprzeciwu]</p>
+    <section class="clause" id="s3">
+      <div class="clause-h"><span class="clause-num">03</span><h2>Jakie dane zbieramy i skąd je mamy</h2></div>
+      <p>Przetwarzamy wyłącznie dane, które samodzielnie nam przekazujesz, oraz ograniczone dane techniczne zbierane automatycznie podczas korzystania z serwisu. Nie kupujemy ani nie pozyskujemy Twoich danych z innych źródeł.</p>
 
-  <h2>7. Kontakt w sprawach ochrony danych</h2>
-  <p>[Do uzupełnienia: adres email do kontaktu w sprawach RODO]</p>
+      <h3>a) Formularz „Pobierz bezpłatny prospekt"</h3>
+      <ul>
+        <li>imię i nazwisko,</li>
+        <li>służbowy adres e-mail,</li>
+        <li>nazwa firmy oraz stanowisko,</li>
+        <li>liczba pracowników (przedział) oraz obszar zainteresowania — dane opcjonalne, pomagające dopasować ofertę.</li>
+      </ul>
 
-  <h2>8. Pliki cookies</h2>
-  <p>[Do uzupełnienia: czy strona używa cookies, jakich, w jakim celu]</p>
+      <h3>b) Formularz umówienia konsultacji telefonicznej</h3>
+      <ul>
+        <li>imię i nazwisko,</li>
+        <li>adres e-mail,</li>
+        <li>numer telefonu,</li>
+        <li>nazwa firmy (opcjonalnie),</li>
+        <li>preferowana data oraz pora kontaktu.</li>
+      </ul>
+
+      <h3>c) Dane zbierane automatycznie</h3>
+      <ul>
+        <li>dane techniczne zapisywane w logach serwera (adres IP, data i godzina zapytania, typ przeglądarki) — niezbędne do zapewnienia bezpieczeństwa i prawidłowego działania serwisu,</li>
+        <li>informacje przechowywane lokalnie w Twojej przeglądarce (pamięć <em>localStorage</em>) — np. zapamiętana pozycja na stronie czy ostatnie ustawienia kalkulatora; dane te nie są przesyłane na nasz serwer (zob. punkt 11).</li>
+      </ul>
+
+      <div class="callout"><strong>Kalkulator korzyści</strong> działa w całości w Twojej przeglądarce. Wprowadzane w nim wartości (np. liczba pracowników, wynagrodzenie) służą wyłącznie do obliczeń po Twojej stronie i <strong>nie są do nas przesyłane ani zapisywane</strong>, dopóki samodzielnie nie wyślesz formularza.</div>
+
+      <p>Prosimy o niepodawanie w formularzach danych szczególnych kategorii (np. dotyczących zdrowia) — nie są nam one potrzebne i ich nie zbieramy.</p>
+    </section>
+
+    <section class="clause" id="s4">
+      <div class="clause-h"><span class="clause-num">04</span><h2>Cele i podstawy prawne przetwarzania</h2></div>
+      <p>Każdą operację na Twoich danych opieramy na konkretnej podstawie prawnej wynikającej z art. 6 RODO:</p>
+      <div class="basis-table">
+        <div class="basis-row head"><div class="basis-cell">Cel przetwarzania</div><div class="basis-cell">Podstawa prawna</div></div>
+        <div class="basis-row">
+          <div class="basis-cell"><b>Przesłanie prospektu PDF</b> oraz odpowiedź na zapytanie złożone przez formularz</div>
+          <div class="basis-cell">podjęcie działań na żądanie osoby przed zawarciem umowy oraz nasz prawnie uzasadniony interes (obsługa zapytania)<span class="art">art. 6 ust. 1 lit. b i f</span></div>
+        </div>
+        <div class="basis-row">
+          <div class="basis-cell"><b>Umówienie i przeprowadzenie konsultacji telefonicznej</b></div>
+          <div class="basis-cell">podjęcie działań na żądanie osoby przed zawarciem umowy<span class="art">art. 6 ust. 1 lit. b</span></div>
+        </div>
+        <div class="basis-row">
+          <div class="basis-cell"><b>Marketing własnych usług</b> (np. kontakt handlowy, informacje o programie)</div>
+          <div class="basis-cell">nasz prawnie uzasadniony interes, a w zakresie komunikacji elektronicznej i telefonicznej — Twoja zgoda<span class="art">art. 6 ust. 1 lit. f / lit. a</span></div>
+        </div>
+        <div class="basis-row">
+          <div class="basis-cell"><b>Ustalenie, dochodzenie lub obrona roszczeń</b></div>
+          <div class="basis-cell">nasz prawnie uzasadniony interes<span class="art">art. 6 ust. 1 lit. f</span></div>
+        </div>
+        <div class="basis-row">
+          <div class="basis-cell"><b>Realizacja obowiązków prawnych</b> (np. podatkowych, rachunkowych — gdy dojdzie do współpracy)</div>
+          <div class="basis-cell">obowiązek prawny ciążący na administratorze<span class="art">art. 6 ust. 1 lit. c</span></div>
+        </div>
+        <div class="basis-row">
+          <div class="basis-cell"><b>Zapewnienie bezpieczeństwa i prawidłowego działania serwisu</b></div>
+          <div class="basis-cell">nasz prawnie uzasadniony interes<span class="art">art. 6 ust. 1 lit. f</span></div>
+        </div>
+      </div>
+      <p>Jeżeli przetwarzanie odbywa się na podstawie zgody, możesz ją w każdej chwili wycofać — bez wpływu na zgodność z prawem przetwarzania dokonanego przed jej wycofaniem.</p>
+    </section>
+
+    <section class="clause" id="s5">
+      <div class="clause-h"><span class="clause-num">05</span><h2>Okres przechowywania danych</h2></div>
+      <ul>
+        <li>dane z zapytań i konsultacji, które nie zakończyły się współpracą — przez okres niezbędny do obsługi zapytania, a następnie do <strong>12 miesięcy</strong> dla celów kontaktu handlowego, chyba że wcześniej zgłosisz sprzeciw lub cofniesz zgodę;</li>
+        <li>dane przetwarzane na podstawie zgody — do czasu jej wycofania;</li>
+        <li>dane związane z zawartą umową — przez czas jej trwania, a po jej zakończeniu przez okres przedawnienia roszczeń oraz wymagany przepisami prawa (np. podatkowymi);</li>
+        <li>logi serwera — przez okres niezbędny dla bezpieczeństwa, zwykle nie dłużej niż <strong>12 miesięcy</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="clause" id="s6">
+      <div class="clause-h"><span class="clause-num">06</span><h2>Odbiorcy danych</h2></div>
+      <p>Twoje dane możemy powierzać zaufanym podmiotom przetwarzającym, które działają na nasze zlecenie i wyłącznie zgodnie z naszymi instrukcjami, na podstawie umów powierzenia przetwarzania danych. Należą do nich w szczególności:</p>
+      <ul>
+        <li>dostawca hostingu i infrastruktury serwerowej, na której działa serwis,</li>
+        <li>dostawca poczty elektronicznej oraz narzędzi do obsługi korespondencji i kontaktów (CRM),</li>
+        <li>podmioty świadczące dla nas usługi księgowe, prawne lub doradcze — w niezbędnym zakresie,</li>
+        <li>wyspecjalizowany operator programu — wyłącznie w zakresie koniecznym do przygotowania i realizacji oferty, po nawiązaniu kontaktu.</li>
+      </ul>
+      <p>Nie sprzedajemy i nie udostępniamy Twoich danych innym podmiotom dla ich własnych celów marketingowych.</p>
+    </section>
+
+    <section class="clause" id="s7">
+      <div class="clause-h"><span class="clause-num">07</span><h2>Przekazywanie danych poza EOG</h2></div>
+      <p>Co do zasady przetwarzamy dane na terenie Europejskiego Obszaru Gospodarczego (EOG). Jeżeli któryś z naszych dostawców usług (np. poczty lub narzędzi analitycznych) przetwarza dane poza EOG, następuje to wyłącznie przy zapewnieniu odpowiednich zabezpieczeń wymaganych przez RODO — w szczególności na podstawie <strong>standardowych klauzul umownych</strong> zatwierdzonych przez Komisję Europejską lub decyzji o odpowiednim stopniu ochrony. Kopię stosowanych zabezpieczeń możesz uzyskać, kontaktując się z nami.</p>
+    </section>
+
+    <section class="clause" id="s8">
+      <div class="clause-h"><span class="clause-num">08</span><h2>Twoje prawa</h2></div>
+      <p>W związku z przetwarzaniem danych przysługują Ci następujące prawa:</p>
+      <div class="rights">
+        <div class="right-item"><h4>Dostęp do danych</h4><p>Prawo do uzyskania informacji, czy i jakie dane przetwarzamy, oraz do otrzymania ich kopii.</p></div>
+        <div class="right-item"><h4>Sprostowanie</h4><p>Prawo do poprawienia danych nieprawidłowych oraz uzupełnienia niekompletnych.</p></div>
+        <div class="right-item"><h4>Usunięcie („prawo do bycia zapomnianym")</h4><p>Prawo do żądania usunięcia danych, gdy nie ma podstaw do ich dalszego przetwarzania.</p></div>
+        <div class="right-item"><h4>Ograniczenie przetwarzania</h4><p>Prawo do żądania wstrzymania przetwarzania danych w określonych sytuacjach.</p></div>
+        <div class="right-item"><h4>Przenoszenie danych</h4><p>Prawo do otrzymania danych w ustrukturyzowanym formacie i przekazania ich innemu administratorowi.</p></div>
+        <div class="right-item"><h4>Sprzeciw</h4><p>Prawo do sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie, w tym wobec marketingu bezpośredniego.</p></div>
+        <div class="right-item"><h4>Cofnięcie zgody</h4><p>Prawo do wycofania zgody w dowolnym momencie, bez wpływu na wcześniejsze przetwarzanie.</p></div>
+        <div class="right-item"><h4>Skarga do organu nadzorczego</h4><p>Prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (PUODO).</p></div>
+      </div>
+      <p>Aby skorzystać z powyższych praw, skontaktuj się z nami pod adresem <a href="mailto:office@divideyou.com">office@divideyou.com</a>. Odpowiemy bez zbędnej zwłoki, najpóźniej w ciągu miesiąca. Organ nadzorczy: <strong>Prezes Urzędu Ochrony Danych Osobowych</strong>, ul. Stawki 2, 00-193 Warszawa.</p>
+    </section>
+
+    <section class="clause" id="s9">
+      <div class="clause-h"><span class="clause-num">09</span><h2>Dobrowolność podania danych</h2></div>
+      <p>Podanie danych jest <strong>dobrowolne</strong>, jednak niezbędne do realizacji wybranego działania — bez podania danych oznaczonych jako wymagane nie będziemy mogli przesłać prospektu ani umówić konsultacji. Dane opcjonalne (np. liczba pracowników, obszar zainteresowania) pomagają nam lepiej dopasować odpowiedź, ale ich podanie nie jest konieczne.</p>
+    </section>
+
+    <section class="clause" id="s10">
+      <div class="clause-h"><span class="clause-num">10</span><h2>Profilowanie i automatyczne decyzje</h2></div>
+      <p>Nie podejmujemy wobec Ciebie decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu (w tym profilowaniu), które wywoływałyby wobec Ciebie skutki prawne lub w podobny sposób istotnie na Ciebie wpływały. Kalkulator korzyści dokonuje jedynie poglądowych obliczeń po Twojej stronie i nie służy do oceny Twojej osoby.</p>
+    </section>
+
+    <section class="clause" id="s11">
+      <div class="clause-h"><span class="clause-num">11</span><h2>Pliki cookies i pamięć lokalna</h2></div>
+      <p>Serwis korzysta z technologii niezbędnych do jego prawidłowego działania:</p>
+      <ul>
+        <li><strong>Cookies / pamięć lokalna niezbędne i funkcjonalne</strong> — zapewniają podstawowe działanie serwisu oraz zapamiętują Twoje wybory (np. pozycję na stronie, ustawienia kalkulatora). Ich stosowanie nie wymaga zgody.</li>
+        <li><strong>Cookies analityczne i marketingowe</strong> — stosujemy je wyłącznie po wyrażeniu przez Ciebie zgody. Jeśli takie narzędzia zostaną uruchomione, poprosimy Cię o zgodę za pomocą baneru cookies, a szczegóły znajdziesz w tej Polityce.</li>
+      </ul>
+      <p>W każdej chwili możesz zarządzać plikami cookies oraz pamięcią lokalną z poziomu ustawień swojej przeglądarki — w tym je usunąć lub zablokować. Ograniczenie plików niezbędnych może wpłynąć na działanie serwisu.</p>
+    </section>
+
+    <section class="clause" id="s12">
+      <div class="clause-h"><span class="clause-num">12</span><h2>Bezpieczeństwo danych</h2></div>
+      <p>Stosujemy odpowiednie środki techniczne i organizacyjne, aby chronić Twoje dane przed nieuprawnionym dostępem, utratą czy zniszczeniem — m.in. szyfrowanie połączenia (SSL/TLS), ograniczenie dostępu do danych wyłącznie do osób upoważnionych oraz zabezpieczenie antyspamowe formularzy. Środki te dostosowujemy do poziomu ryzyka.</p>
+    </section>
+
+    <section class="clause" id="s13">
+      <div class="clause-h"><span class="clause-num">13</span><h2>Zmiany Polityki prywatności</h2></div>
+      <p>Politykę możemy aktualizować, gdy zmienią się przepisy, technologie lub zakres naszych usług. Aktualna wersja jest zawsze dostępna na tej stronie, a datę ostatniej aktualizacji wskazujemy na jej początku. Zachęcamy do okresowego sprawdzania tej strony.</p>
+      <p style="margin-top:1.6rem;font-size:.86rem;color:var(--stone);">Zobacz także: <a href="rodo.html">Klauzula informacyjna RODO (art. 13)</a>.</p>
+    </section>
+
+  </main>
 </div>
 
 <footer>
-  <a href="/polityka-prywatnosci.html">Polityka prywatności</a>
-  <a href="/rodo.html">RODO</a>
-  <a href="mailto:kontakt@sharedhotels.pl">Kontakt</a>
+  <div class="footer-logo">Shared Hotels</div>
+  <div class="footer-links">
+    <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+    <a href="rodo.html">RODO</a>
+    <a href="mailto:office@divideyou.com">Kontakt</a>
+  </div>
+  <span style="font-size:.78rem;color:rgba(255,255,255,.28);letter-spacing:.12em;">PL / EN</span>
 </footer>
 
 </body>
