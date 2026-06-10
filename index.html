@@ -345,6 +345,11 @@ footer{background:#111110;padding:2rem 6%;display:flex;align-items:center;justif
   .aud-tabs{overflow-x:auto;}
   .aud-tab{white-space:nowrap;}
 }
+/* Orientacja pozioma / niskie ekrany — żeby treść hero nie nachodziła na statystyki */
+@media(max-height:600px){
+  #hero{min-height:auto;justify-content:flex-start;padding-top:6rem;padding-bottom:2.5rem;}
+  .hero-stats{position:relative;margin-top:2.5rem;}
+}
 /* ====================================================================
    CZYTELNOŚĆ — powiększony drobny tekst (kompresja skali typograficznej)
    Drobne podpisy, przypisy, etykiety i opisy podniesione do czytelnego
