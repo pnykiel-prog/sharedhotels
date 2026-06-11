@@ -17,6 +17,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 
 const PROSPEKTY = ['SH_Prospekt_1_HR.pdf', 'SH_Prospekt_2_Informator.pdf'];
+const PROSPEKTY_EN = ['SH_Prospekt_1_HR_EN.pdf', 'SH_Prospekt_2_Informator_EN.pdf'];
 
 function esc(v) {
   return String(v == null ? '' : v).replace(/[&<>"']/g, c =>
@@ -67,6 +68,7 @@ module.exports = async (req, res) => {
   if (b._honey) { res.status(200).json({ ok:true }); return; } // bot
 
   const type  = b.type || '';
+  const lang  = (b.lang === 'en') ? 'en' : 'pl';
   const imie  = clean(b.imie);
   const email = clean(b.email);
   const firma = clean(b.firma);
@@ -83,19 +85,26 @@ module.exports = async (req, res) => {
         <b>Obszar:</b> ${esc(clean(b.obszar))}</p>`;
       await mailSend({ from: FROM, to: TO, replyTo: email, subject: `Prospekt — ${firma} (${imie})`, html: admin });
 
-      const attachments = PROSPEKTY.map(name => {
+      const attachments = (lang === 'en' ? PROSPEKTY_EN : PROSPEKTY).map(name => {
         try {
           const p = path.join(process.cwd(), 'prospekty', name);
           return { filename: name, content: fs.readFileSync(p) };
         } catch(_) { return null; }
       }).filter(Boolean);
 
-      const client = `<div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#1a1a18">
-        <p>Dzień dobry ${esc(imie)},</p>
-        <p>dziękujemy za zainteresowanie programem <b>Shared Hotels</b>. W załączniku przesyłamy prospekt informacyjny oraz informator z modelem działania programu.</p>
-        <p>Skontaktujemy się z Tobą w ciągu 24–48 godzin.</p>
-        <p>Pozdrawiamy,<br>Zespół Shared Hotels</p></div>`;
-      const ok = await mailSend({ from: FROM, to: email, replyTo: TO, subject: 'Twój prospekt Shared Hotels', html: client, attachments });
+      const client = (lang === 'en')
+        ? `<div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#1a1a18">
+          <p>Hello ${esc(imie)},</p>
+          <p>thank you for your interest in the <b>Shared Hotels</b> programme. Attached you'll find the information brochure and the sheet describing how the programme works.</p>
+          <p>We'll be in touch within 24–48 hours.</p>
+          <p>Best regards,<br>The Shared Hotels Team</p></div>`
+        : `<div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#1a1a18">
+          <p>Dzień dobry ${esc(imie)},</p>
+          <p>dziękujemy za zainteresowanie programem <b>Shared Hotels</b>. W załączniku przesyłamy prospekt informacyjny oraz informator z modelem działania programu.</p>
+          <p>Skontaktujemy się z Tobą w ciągu 24–48 godzin.</p>
+          <p>Pozdrawiamy,<br>Zespół Shared Hotels</p></div>`;
+      const subject = (lang === 'en') ? 'Your Shared Hotels brochure' : 'Twój prospekt Shared Hotels';
+      const ok = await mailSend({ from: FROM, to: email, replyTo: TO, subject, html: client, attachments });
       res.status(ok ? 200 : 500).json({ ok });
       return;
     }
@@ -107,13 +116,21 @@ module.exports = async (req, res) => {
         <b>Firma:</b> ${esc(firma)}<br><b>Preferowana data:</b> ${esc(data)}<br><b>Pora dnia:</b> ${esc(pora)}</p>`;
       await mailSend({ from: FROM, to: TO, replyTo: email, subject: `Konsultacja — ${imie} (${data}, ${pora})`, html: admin });
 
-      const client = `<div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#1a1a18">
-        <p>Dzień dobry ${esc(imie)},</p>
-        <p>dziękujemy za umówienie rozmowy. Oddzwonimy w wybranym terminie:</p>
-        <p style="font-size:17px"><b>${esc(data)}</b><br>Pora dnia: <b>${esc(pora)}</b></p>
-        <p>Rozmowa jest niezobowiązująca i potrwa ok. 20 minut. Gdyby termin wymagał zmiany — odpisz na tę wiadomość.</p>
-        <p>Do usłyszenia,<br>Zespół Shared Hotels</p></div>`;
-      const ok = await mailSend({ from: FROM, to: email, replyTo: TO, subject: 'Potwierdzenie rozmowy — Shared Hotels', html: client });
+      const client = (lang === 'en')
+        ? `<div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#1a1a18">
+          <p>Hello ${esc(imie)},</p>
+          <p>thank you for booking a call. We'll call you back at the chosen time:</p>
+          <p style="font-size:17px"><b>${esc(data)}</b><br>Time of day: <b>${esc(pora)}</b></p>
+          <p>The call is non-binding and takes about 20 minutes. If the time needs changing — just reply to this message.</p>
+          <p>Talk soon,<br>The Shared Hotels Team</p></div>`
+        : `<div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#1a1a18">
+          <p>Dzień dobry ${esc(imie)},</p>
+          <p>dziękujemy za umówienie rozmowy. Oddzwonimy w wybranym terminie:</p>
+          <p style="font-size:17px"><b>${esc(data)}</b><br>Pora dnia: <b>${esc(pora)}</b></p>
+          <p>Rozmowa jest niezobowiązująca i potrwa ok. 20 minut. Gdyby termin wymagał zmiany — odpisz na tę wiadomość.</p>
+          <p>Do usłyszenia,<br>Zespół Shared Hotels</p></div>`;
+      const subject = (lang === 'en') ? 'Call confirmation — Shared Hotels' : 'Potwierdzenie rozmowy — Shared Hotels';
+      const ok = await mailSend({ from: FROM, to: email, replyTo: TO, subject, html: client });
       res.status(ok ? 200 : 500).json({ ok });
       return;
     }

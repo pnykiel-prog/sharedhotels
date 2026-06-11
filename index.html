@@ -985,6 +985,7 @@ const MAIL_ENDPOINT = '/api/send';
 
 async function sendForm(form){
   const data = new URLSearchParams(new FormData(form));
+  data.set('lang', window.LANG || 'pl');
   const res = await fetch(MAIL_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:data });
   let ok = res.ok;
   try { const j = await res.json(); ok = ok && j && j.ok !== false; } catch(_) {}

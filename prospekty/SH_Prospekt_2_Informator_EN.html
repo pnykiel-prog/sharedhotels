@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>Shared Hotels — Program Benefitu Wypoczynkowego · Informator</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --teal:#1a7a5c;--td:#0d5040;--tl:#e6f4ef;--tm:#4db896;
+  --sand:#f7f3ec;--sd:#ede6d8;--ch:#1a1a18;--chm:#2e2e2a;
+  --stone:#6e6e66;--w:#fefefe;--amb:#b87333;--ambl:#FFF8F0;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--fb);background:#ddd;color:var(--ch);}
+
+/* ── STRONY ── */
+.page{width:210mm;min-height:297mm;margin:8mm auto;background:var(--w);display:flex;flex-direction:column;overflow:hidden;position:relative;}
+
+/* ── WSPÓLNE ── */
+.eyebrow{font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);}
+.section-pad{padding:1.8rem 2.6rem;}
+.section-pad-sm{padding:1.2rem 2.6rem;}
+.sep{height:1px;background:var(--sd);margin:0 2.6rem;}
+.sep-full{height:1px;background:var(--sd);}
+
+/* ── HERO (jak www) ── */
+.hero{background:var(--ch);position:relative;padding:2.6rem 2.6rem 2.2rem;flex-shrink:0;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(26,122,92,.22) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.4rem;}
+.hero-logo{font-family:var(--fd);font-size:1.25rem;font-weight:600;color:var(--w);letter-spacing:.06em;}
+.hero-pgnum{font-size:.6rem;color:rgba(255,255,255,.3);letter-spacing:.1em;}
+.hero-ey{font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--tm);margin-bottom:.7rem;}
+.hero-h{font-family:var(--fd);font-size:2.2rem;font-weight:300;color:var(--w);line-height:1.1;letter-spacing:-.01em;margin-bottom:.5rem;}
+.hero-h em{font-style:italic;color:var(--tm);}
+.hero-line{width:32px;height:1px;background:rgba(255,255,255,.18);margin:.7rem 0;}
+.hero-sub{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.8;font-weight:300;}
+
+/* ANCHOR BOX */
+.anchor{background:var(--tl);border-left:3px solid var(--teal);padding:1rem 1.4rem;margin:0 2.6rem;}
+.anchor p{font-family:var(--fd);font-size:1.1rem;color:var(--td);line-height:1.6;font-style:italic;}
+
+/* ── PAIN GRID (jak www) ── */
+.pain-section{background:var(--sand);padding:1.6rem 2.6rem 1.4rem;flex-shrink:0;}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--sd);margin-top:.8rem;}
+.pain-card{background:var(--sand);padding:1.2rem 1rem 1rem;position:relative;}
+.pain-num{font-family:var(--fd);font-size:3.2rem;font-weight:300;color:var(--sd);line-height:1;margin-bottom:.6rem;}
+.pain-title{font-size:.8rem;font-weight:500;color:var(--ch);margin-bottom:.4rem;}
+.pain-text{font-size:.72rem;color:var(--stone);line-height:1.6;border-top:1px solid var(--sd);padding-top:.5rem;margin-top:.3rem;}
+
+/* ESG ROW */
+.esg-row{display:grid;grid-template-columns:3.5rem 1fr;gap:0;margin:1rem 2.6rem 0;border:1px solid var(--sd);}
+.esg-badge{background:var(--td);display:flex;align-items:center;justify-content:center;}
+.esg-badge span{font-family:var(--fd);font-size:1.8rem;font-weight:300;color:var(--w);}
+.esg-body{padding:.8rem 1.1rem;}
+.esg-label{font-size:.6rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:.3rem;}
+.esg-text{font-size:.75rem;color:var(--ch);line-height:1.55;}
+
+/* ── STEPS (jak www) ── */
+.how-section{background:var(--w);padding:1.6rem 2.6rem;flex:1;}
+.steps{margin-top:.8rem;}
+.step{display:flex;gap:1.2rem;padding:.8rem 0;border-bottom:1px solid var(--sd);}
+.step:last-child{border-bottom:none;}
+.step-num{width:30px;height:30px;background:var(--ch);color:var(--w);font-family:var(--fd);font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+.step-title{font-size:.82rem;font-weight:500;color:var(--ch);margin-bottom:.25rem;line-height:1.3;}
+.step-desc{font-size:.75rem;color:var(--stone);line-height:1.6;}
+.step-desc strong{color:var(--td);}
+
+/* NOTE BOX */
+.note-box{background:var(--ambl);border-left:3px solid var(--amb);padding:.8rem 1.2rem;margin:1rem 2.6rem 0;}
+.note-box p{font-size:.72rem;color:#7a4a00;line-height:1.6;}
+
+/* ── AUDIENCE TABS (strona 3) ── */
+.aud-section{background:var(--w);padding:1.6rem 2.6rem;flex:1;}
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--sd);margin-top:.8rem;}
+.aud-col{background:var(--w);padding:1.2rem 1rem;}
+.aud-col-hdr{background:var(--td);padding:.9rem 1rem;display:flex;align-items:center;gap:.6rem;}
+.aud-col-hdr .role{font-size:.65rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.aud-col-hdr .name{font-family:var(--fd);font-size:1.1rem;font-weight:300;color:var(--w);}
+.aud-list{margin-top:.8rem;}
+.aud-item{display:flex;gap:.5rem;padding:.35rem 0;border-bottom:1px solid var(--sd);}
+.aud-item:last-child{border-bottom:none;}
+.aud-arrow{color:var(--teal);font-size:.7rem;flex-shrink:0;margin-top:.12rem;}
+.aud-text{font-size:.74rem;color:var(--ch);line-height:1.45;}
+
+/* STATS ROW (jak hero-stats na www) */
+.stats-row{display:flex;border-top:1px solid var(--sd);border-bottom:1px solid var(--sd);margin:1rem 0;}
+.stat-item{flex:1;padding:.8rem 1rem;border-right:1px solid var(--sd);text-align:center;}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:var(--fd);font-size:1.7rem;font-weight:300;color:var(--td);line-height:1;}
+.stat-label{font-size:.62rem;color:var(--stone);letter-spacing:.08em;margin-top:.25rem;line-height:1.4;}
+.stat-note{font-size:.58rem;color:rgba(0,0,0,.28);font-style:italic;margin-top:.15rem;}
+
+/* ── KALKULATOR (strona 4) ── */
+.calc-section{background:var(--sand);padding:1.6rem 2.6rem;flex:1;}
+.calc-box{background:var(--w);border:1px solid var(--sd);padding:1.5rem;margin-top:.8rem;}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 2rem;margin-bottom:1.2rem;}
+.calc-field label{display:block;font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:.4rem;}
+.calc-field input[type=range]{width:100%;accent-color:var(--teal);height:4px;margin:.35rem 0;}
+.calc-field select{width:100%;padding:.45rem .7rem;border:1px solid var(--sd);background:var(--w);font-family:var(--fb);font-size:.8rem;color:var(--ch);}
+.calc-val{font-family:var(--fd);font-size:1.5rem;font-weight:300;color:var(--td);}
+.calc-results{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--sd);margin-top:1.2rem;}
+.calc-result{background:var(--w);padding:1rem;text-align:center;}
+.r-val{font-family:var(--fd);font-size:1.6rem;font-weight:300;color:var(--td);}
+.r-label{font-size:.65rem;color:var(--stone);margin-top:.3rem;line-height:1.4;}
+.calc-note{font-size:.68rem;color:var(--stone);font-style:italic;margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--sd);line-height:1.6;}
+.calc-note strong{color:var(--td);}
+
+/* Co zawiera analiza */
+.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--sd);margin-top:1rem;}
+.analysis-item{background:var(--sand);padding:.9rem 1rem;}
+.analysis-icon{font-size:1rem;margin-bottom:.3rem;}
+.analysis-title{font-size:.76rem;font-weight:500;color:var(--ch);margin-bottom:.2rem;}
+.analysis-desc{font-size:.7rem;color:var(--stone);line-height:1.5;}
+
+/* ── ŚCIEŻKA KM (strona 5) ── */
+.km-section{background:var(--w);padding:1.6rem 2.6rem;flex-shrink:0;}
+.km-flow{display:flex;align-items:stretch;gap:1px;background:var(--sd);margin-top:.8rem;}
+.km-item{flex:1;background:var(--w);padding:.9rem .7rem;text-align:center;}
+.km-item.highlight{background:var(--tl);}
+.km-item.key{background:var(--td);}
+.km-dot{width:2rem;height:2rem;border-radius:50%;background:var(--sd);display:flex;align-items:center;justify-content:center;margin:0 auto .4rem;font-size:.6rem;font-weight:500;color:var(--stone);}
+.km-dot.active{background:var(--teal);color:var(--w);}
+.km-dot.key{background:var(--ch);color:var(--w);}
+.km-label{font-size:.64rem;color:var(--ch);line-height:1.3;}
+.km-item.key .km-label{color:rgba(255,255,255,.8);}
+
+/* Etapy kolumny */
+.stages{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--sd);margin:1rem 0;}
+.stage{padding:1rem 1.1rem;}
+.stage-1{background:var(--w);}
+.stage-2{background:var(--sand);}
+.stage-3{background:var(--tl);}
+.stage-label{font-size:.58rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.4rem;}
+.stage-1 .stage-label{color:var(--teal);}
+.stage-2 .stage-label{color:var(--amb);}
+.stage-3 .stage-label{color:var(--td);}
+.stage-text{font-size:.74rem;color:var(--ch);line-height:1.5;}
+.stage-text strong{display:block;margin-top:.3rem;}
+
+/* CTA split */
+.cta-split{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:auto;flex-shrink:0;}
+.cta-main{background:var(--td);padding:1.5rem 1.8rem;}
+.cta-main .ey{font-size:.58rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);margin-bottom:.4rem;}
+.cta-main .ch{font-family:var(--fd);font-size:1.4rem;font-weight:300;color:var(--w);margin-bottom:.4rem;}
+.cta-main .sub{font-size:.74rem;color:rgba(255,255,255,.5);line-height:1.6;}
+.cta-main .btn{display:inline-block;background:var(--teal);color:var(--w);padding:.55rem 1.4rem;font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-top:.7rem;}
+.cta-contact{background:var(--sand);padding:1.5rem 1.8rem;display:flex;flex-direction:column;justify-content:center;}
+.cta-contact .name{font-family:var(--fd);font-size:1.2rem;color:var(--ch);margin-bottom:.2rem;}
+.cta-contact .role{font-size:.68rem;color:var(--stone);margin-bottom:.5rem;}
+.cta-contact .div{height:1px;background:var(--sd);margin:.4rem 0;}
+.cta-contact .email{font-size:.76rem;color:var(--teal);font-weight:500;}
+.cta-contact .web{font-size:.7rem;color:var(--stone);margin-top:.2rem;}
+
+/* Stopka */
+.disclaimer{padding:.5rem 2.6rem;background:var(--w);}
+.disclaimer p{font-size:.58rem;color:var(--stone);font-style:italic;text-align:center;line-height:1.5;}
+
+/* ── PRINT ── */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  body{background:white;}
+  .page{margin:0;width:100%;page-break-after:always;box-shadow:none;}
+  .page:last-child{page-break-after:auto;}
+  .calc-field input[type=range]{display:none;}
+  .calc-val-static{display:block!important;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ STRONA 1 — PROBLEM ════════════════ -->
+<div class="page">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-logo">SHARED HOTELS</div>
+        <div class="hero-pgnum">1 / 5</div>
+      </div>
+      <div class="hero-ey">Holiday benefit programme · Information sheet</div>
+      <div class="hero-h">A benefit employees<br><em>genuinely use</em></div>
+      <div class="hero-line"></div>
+      <div class="hero-sub">For the HR, CEO and CFO of large Polish employers (1,000+ employees)</div>
+    </div>
+  </div>
+
+  <div style="padding:.8rem 2.6rem 0;">
+    <div class="anchor">
+      <p>Shared Hotels turns the company's social budget into a real, annual holiday benefit for employees — without the company having to run a hotel.</p>
+    </div>
+  </div>
+
+  <div class="pain-section">
+    <div class="eyebrow">Three problems we solve</div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-num">01</div>
+        <div class="pain-title">Turnover and difficulty retaining people</div>
+        <div class="pain-text">Benefits "on paper" don't keep employees. What's needed is a benefit employees genuinely use every year and look forward to.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">02</div>
+        <div class="pain-title">Leave seasonality at the peak of summer</div>
+        <div class="pain-text">Everyone wants leave in July–August. A programme available at least 6 months a year (March–November) eases the peak and balances trips.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">03</div>
+        <div class="pain-title">ESG and wellbeing without measurable action</div>
+        <div class="pain-text">Companies with 1,000+ employees report ESG from 2028 (Omnibus I). Annual holidays are something concrete for the S pillar — not a declaration, but action.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="esg-row" style="margin:1rem 2.6rem;">
+    <div class="esg-badge"><span>S</span></div>
+    <div class="esg-body">
+      <div class="esg-label">ESG · Social Pillar</div>
+      <div class="esg-text">Rafał Rudzik, Director of Sustainability, Żabka: <em style="color:var(--td);">"ESG stops being a cost — it becomes a benefit."</em> Shared Hotels delivers something measurable and concrete — annual holidays — to back this up.</div>
+    </div>
+  </div>
+
+  <div class="disclaimer" style="margin-top:auto;">
+    <p>B2B reference material · Not an offer · Financial details after an NDA · AK88 / Shared Hotels · June 2026</p>
+  </div>
+</div>
+
+
+<!-- ════════════════ STRONA 2 — JAK DZIAŁA ════════════════ -->
+<div class="page">
+  <div class="hero" style="padding:1.6rem 2.6rem 1.4rem;">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-logo">SHARED HOTELS</div>
+        <div class="hero-pgnum">2 / 5</div>
+      </div>
+      <div class="hero-ey">How the programme works</div>
+      <div class="hero-h" style="font-size:1.7rem;">Four steps — from the decision<br>to the employee's annual holiday</div>
+    </div>
+  </div>
+
+  <div class="how-section">
+    <div class="eyebrow">How it works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">The employer joins the programme</div>
+          <div class="step-desc">The programme starts using funds from the Company Social Benefits Fund (ZFŚS) — without directly engaging the company's operating budget. A paid analysis precedes the decision and provides exact data for the specific company.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">SH secures hotel capacity to order</div>
+          <div class="step-desc">For a specific employer's order, SH secures an existing hotel property in a warm destination (available at least 6 months a year). The property <strong>is bought to order — not "in reserve"</strong>. The hotel is purchased to the employer's order — SH backs the programme with the assets of these hotels.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Two components for the employee</div>
+          <div class="step-desc"><strong>Discount voucher (ZFŚS):</strong> funded by the employer from social funds — assigned to the position, it passes to the next employee on a change.<br><strong>Package / Gold Card:</strong> bought with the employee's own funds — assigned to them personally, the employee keeps it even after changing employer.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">A specialised operator runs the hotel. Employees use it every year.</div>
+          <div class="step-desc">The company doesn't become a hotelier — operational risk and day-to-day running sit with the specialised operator. An annual stay available at least 6 months a year. A benefit the employee genuinely plans with their family — recurring, throughout the programme (5, 10 or 15 years).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p>⚠ <strong>The exact parameters (locations, costs, programme scale)</strong> come from a paid analysis prepared individually for each company. The above describes how it works and is not a price offer.</p>
+  </div>
+
+  <div class="disclaimer" style="margin-top:auto;padding-top:.6rem;">
+    <p>B2B reference material · Not an offer · Financial details after an NDA · AK88 / Shared Hotels · June 2026</p>
+  </div>
+</div>
+
+
+<!-- ════════════════ STRONA 3 — KORZYŚCI WG ODBIORCY ════════════════ -->
+<div class="page">
+  <div class="hero" style="padding:1.6rem 2.6rem 1.4rem;">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-logo">SHARED HOTELS</div>
+        <div class="hero-pgnum">3 / 5</div>
+      </div>
+      <div class="hero-ey">Arguments by role</div>
+      <div class="hero-h" style="font-size:1.7rem;">What each<br>decision-making role gains</div>
+    </div>
+  </div>
+
+  <div class="aud-section">
+    <div class="eyebrow">Benefits by audience</div>
+    <div class="aud-grid">
+      <div>
+        <div class="aud-col-hdr">
+          <div><div class="role">Entry point</div><div class="name">CHRO / HR</div></div>
+        </div>
+        <div class="aud-col">
+          <div class="aud-list">
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Eliminating leave seasonality — trips spread evenly across the season</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">A benefit with genuinely high usage — not "for the drawer"</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Retention and employment stability</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">A strong recruitment argument in a candidate's market</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Wellbeing and work-life balance — real recovery</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">HR doesn't manage a hotel — zero extra work</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">ESG (S pillar) — concrete data for non-financial reporting</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Funded from the ZFŚS — no operating budget</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="aud-col-hdr">
+          <div><div class="role">Strategic decision-maker</div><div class="name">CEO</div></div>
+        </div>
+        <div class="aud-col">
+          <div class="aud-list">
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">The company doesn't become a hotelier</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Operational risk sits with the specialised operator</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">A measurable effect on retention and employer branding</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Strengthening the position of an attractive employer</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">ESG — concrete data for reporting (Omnibus I, from 2028)</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Security: properties to order, SH backs it with the hotels' assets</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="aud-col-hdr">
+          <div><div class="role">Financial reviewer</div><div class="name">CFO</div></div>
+        </div>
+        <div class="aud-col">
+          <div class="aud-list">
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">A ZFŚS benefit — without the company's operating budget</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">2 components: voucher (ZFŚS) + package (employee's funds)</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">An orderly, measurable programme — not a scattered cost</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Financial risk sits with the operator</div></div>
+            <div class="aud-item"><div class="aud-arrow">→</div><div class="aud-text">Full financial model available after signing an NDA</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:1.2rem;margin-bottom:.4rem;">Illustrative performance indicators</div>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">25–40%</div>
+        <div class="stat-label">Lower turnover rate after implementing wellbeing programmes</div>
+        <div class="stat-note">illustrative indicator</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">75%</div>
+        <div class="stat-label">of the year locations available (min. 6 months of the season)</div>
+        <div class="stat-note">illustrative indicator</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">69%</div>
+        <div class="stat-label">of HR confirm better retention after implementing wellbeing</div>
+        <div class="stat-note">illustrative indicator</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3–6×</div>
+        <div class="stat-label">Return on investment in employee wellbeing</div>
+        <div class="stat-note">illustrative indicator</div>
+      </div>
+    </div>
+    <p style="font-size:.62rem;color:var(--stone);font-style:italic;text-align:center;padding-top:.4rem;">The above indicators are illustrative. Exact values for your company — the result of a paid SH analysis.</p>
+  </div>
+
+  <div class="disclaimer" style="margin-top:auto;padding-top:.4rem;">
+    <p>B2B reference material · Not an offer · Financial details after an NDA · AK88 / Shared Hotels · June 2026</p>
+  </div>
+</div>
+
+
+<!-- ════════════════ STRONA 4 — KALKULATOR ════════════════ -->
+<div class="page">
+  <div class="hero" style="padding:1.6rem 2.6rem 1.4rem;">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-logo">SHARED HOTELS</div>
+        <div class="hero-pgnum">4 / 5</div>
+      </div>
+      <div class="hero-ey">Indicative benefits calculator</div>
+      <div class="hero-h" style="font-size:1.7rem;">How much your company<br><em>could gain?</em></div>
+    </div>
+  </div>
+
+  <div class="calc-section">
+    <div class="eyebrow">Indicative calculations — exact figures from a paid SH analysis</div>
+    <div class="calc-box">
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Number of employees</label>
+          <input type="range" id="emp" min="500" max="5000" step="100" value="1000" oninput="calc()">
+          <div class="calc-val" id="emp-v">1,000</div>
+        </div>
+        <div class="calc-field">
+          <label>Industry / employer type</label>
+          <select id="ind" onchange="calc()">
+            <option value="1.0">Manufacturing</option>
+            <option value="1.2">Retail</option>
+            <option value="0.9">B2B Services</option>
+            <option value="1.1">Logistics / Transport</option>
+            <option value="0.8">Technology / IT</option>
+            <option value="1.05">Other / Mixed</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Current annual turnover (%)</label>
+          <input type="range" id="rot" min="5" max="40" step="1" value="18" oninput="calc()">
+          <div class="calc-val" id="rot-v">18%</div>
+        </div>
+        <div class="calc-field">
+          <label>Average cost of recruitment + onboarding (PLN)</label>
+          <input type="range" id="cost" min="5000" max="60000" step="1000" value="15000" oninput="calc()">
+          <div class="calc-val" id="cost-v">15,000 PLN</div>
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div class="calc-result">
+          <div class="r-val" id="r1">~49 people</div>
+          <div class="r-label">Estimated reduction in departures / year<br><em style="font-size:.6rem;">(approx. ~27%)</em></div>
+        </div>
+        <div class="calc-result">
+          <div class="r-val" id="r2">~729,000 PLN</div>
+          <div class="r-label">Estimated recruitment savings / year (PLN)</div>
+        </div>
+        <div class="calc-result">
+          <div class="r-val" id="r3">~120,000 PLN</div>
+          <div class="r-label">Estimated programme cost from the ZFŚS / year (PLN)<br><em style="font-size:.6rem;">(min. ~PLN 10/employee/month)</em></div>
+        </div>
+      </div>
+
+      <div class="calc-note">
+        <strong>Important:</strong> The above values are indicative — based on typical market data (turnover reduction ~27% after implementing a holiday benefit, programme cost ~PLN 10/employee/month). <strong>Exact figures for your company only from a paid SH analysis, after signing an NDA.</strong>
+      </div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:1rem;margin-bottom:.5rem;">What does the paid SH analysis include?</div>
+    <div class="analysis-grid">
+      <div class="analysis-item">
+        <div class="analysis-icon">📊</div>
+        <div class="analysis-title">Employee needs assessment</div>
+        <div class="analysis-desc">Survey: destination preferences, seasonality, family profiles, willingness to take part.</div>
+      </div>
+      <div class="analysis-item">
+        <div class="analysis-icon">🏨</div>
+        <div class="analysis-title">Location recommendation</div>
+        <div class="analysis-desc">Specific property proposals matched to the employee profile and ZFŚS budget.</div>
+      </div>
+      <div class="analysis-item">
+        <div class="analysis-icon">💰</div>
+        <div class="analysis-title">Full financial model</div>
+        <div class="analysis-desc">Costs, ZFŚS terms, 5/10/15-year scenarios — for this specific company.</div>
+      </div>
+      <div class="analysis-item">
+        <div class="analysis-icon">📋</div>
+        <div class="analysis-title">Implementation plan</div>
+        <div class="analysis-desc">Timeline, employee communication rules, proposed terms of the contract with SH.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer" style="margin-top:auto;padding-top:.4rem;">
+    <p>B2B reference material · Indicative calculator, not an offer · Exact values from a paid SH analysis · AK88 / Shared Hotels · June 2026</p>
+  </div>
+</div>
+
+
+<!-- ════════════════ STRONA 5 — ŚCIEŻKA + CTA ════════════════ -->
+<div class="page">
+  <div class="hero" style="padding:1.6rem 2.6rem 1.4rem;">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-logo">SHARED HOTELS</div>
+        <div class="hero-pgnum">5 / 5</div>
+      </div>
+      <div class="hero-ey">Decision path</div>
+      <div class="hero-h" style="font-size:1.7rem;">What the path<br>to launching the programme looks like</div>
+    </div>
+  </div>
+
+  <div class="km-section">
+    <div class="eyebrow">Milestones — from first contact to signing the contract</div>
+    <div class="km-flow">
+      <div class="km-item highlight">
+        <div class="km-dot active">M1</div>
+        <div class="km-label">First contact with HR</div>
+      </div>
+      <div class="km-item highlight">
+        <div class="km-dot active">M3</div>
+        <div class="km-label">Online presentation for HR</div>
+      </div>
+      <div class="km-item highlight">
+        <div class="km-dot active">M5</div>
+        <div class="km-label">CEO / CFO + HR meeting</div>
+      </div>
+      <div class="km-item key" style="background:var(--amb);">
+        <div class="km-dot key" style="background:var(--amb);">M6</div>
+        <div class="km-label" style="color:var(--w);">Signing the NDA</div>
+      </div>
+      <div class="km-item key" style="background:var(--amb);">
+        <div class="km-dot key" style="background:var(--amb);">M8</div>
+        <div class="km-label" style="color:var(--w);">Paid analysis</div>
+      </div>
+      <div class="km-item key">
+        <div class="km-dot key">M12</div>
+        <div class="km-label" style="color:var(--w);">Signing the contract with SH</div>
+      </div>
+    </div>
+
+    <div class="stages">
+      <div class="stage stage-1">
+        <div class="stage-label">Stage 1 — Opening</div>
+        <div class="stage-text">Talks with HR, model presentation, meeting with the board.<strong>No financial commitments.</strong></div>
+      </div>
+      <div class="stage stage-2">
+        <div class="stage-label">Stage 2 — Paid analysis</div>
+        <div class="stage-text">After the NDA: full financial model. Ordering and paying for the analysis.<strong>First financial commitment.</strong></div>
+      </div>
+      <div class="stage stage-3">
+        <div class="stage-label">Stage 3 — Decision</div>
+        <div class="stage-text">Presentation of results, negotiations, signing the contract.<strong>The programme starts.</strong></div>
+      </div>
+    </div>
+
+    <div class="anchor" style="margin:1rem 0 0;">
+      <p style="font-size:.9rem;">The first call is a presentation of the model and answers to your questions. The first financial commitment comes only with the paid analysis — before that, just conversations.</p>
+    </div>
+  </div>
+
+  <div class="cta-split" style="margin-top:auto;">
+    <div class="cta-main">
+      <div class="ey">Next step</div>
+      <div class="ch">Book a 30-minute call</div>
+      <div class="sub">We'll show how the programme works for a company of your size. No obligations, no pressure.</div>
+      <a class="btn" href="mailto:a.legutko@sharedhotels.com" style="text-decoration:none;">→ &nbsp; a.legutko@sharedhotels.com</a>
+    </div>
+    <div class="cta-contact">
+      <div class="name">Adam Legutko</div>
+      <div class="role">Sales Partner · Shared Hotels / AK88</div>
+      <div class="div"></div>
+      <div class="email">a.legutko@sharedhotels.com</div>
+      <div class="web">www.sharedhotels.com</div>
+    </div>
+  </div>
+
+  <div class="disclaimer" style="padding-top:.4rem;">
+    <p>Shared Hotels is a B2B programme for employers · Reference material, not a commercial offer · Financial and pricing details available after signing an NDA · Illustrative indicators, exact values from a paid analysis · AK88 / Shared Hotels · June 2026</p>
+  </div>
+</div>
+
+<script>
+function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+function calc(){
+  var emp  = parseInt(document.getElementById('emp').value);
+  var rot  = parseInt(document.getElementById('rot').value)/100;
+  var cost = parseInt(document.getElementById('cost').value);
+  var mult = parseFloat(document.getElementById('ind').value);
+  document.getElementById('emp-v').textContent  = fmt(emp);
+  document.getElementById('rot-v').textContent  = Math.round(rot*100)+'%';
+  document.getElementById('cost-v').textContent = fmt(cost)+' PLN';
+  var leavers   = emp * rot * mult;
+  var reduction = leavers * 0.27;
+  var saving    = reduction * cost;
+  var zfss      = emp * 10 * 12;
+  document.getElementById('r1').textContent = '~'+fmt(reduction)+' people';
+  document.getElementById('r2').textContent = '~'+fmt(saving)+' PLN';
+  document.getElementById('r3').textContent = '~'+fmt(zfss)+' PLN';
+}
+calc();
+</script>
+
+
+</body></html>
