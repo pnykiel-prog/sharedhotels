@@ -1172,5 +1172,489 @@ window.addEventListener('pageshow', function(e) {
   if (e.persisted && !location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 });
 </script>
+<script>
+/* =====================================================================
+   I18N — przełącznik PL/EN (dodane bez zmiany istniejącego markupu)
+   ===================================================================== */
+(function(){
+  var PAIRS = [
+    [`Dla kogo`,`For whom`],
+    [`Jak działa`,`How it works`],
+    [`Kalkulator`,`Calculator`],
+    [`Pobierz prospekt`,`Download brochure`],
+    [`Program regularnego wypoczynku hotelowego dla pracodawców`,`A regular hotel holiday programme for employers`],
+    [`Zapewniasz wypoczynek.`,`You provide the holidays.`],
+    [`Zyskujesz zaangażowanie.`,`You gain engagement.`],
+    [`Regularne wakacje dla Twoich pracowników — finansowane z ZFŚS, prowadzone przez wyspecjalizowanego operatora, z mierzalnym wpływem na retencję i zaangażowanie.`,`Regular holidays for your employees — funded from the Company Social Benefits Fund (ZFŚS), run by a specialised operator, with a measurable impact on retention and engagement.`],
+    [`Pobierz bezpłatny prospekt`,`Download the free brochure`],
+    [`Zobacz kalkulator korzyści`,`See the benefits calculator`],
+    [`niższy wskaźnik`,`lower`],
+    [`rotacji`,`turnover`],
+    [`roku dostępne`,`of the year`],
+    [`lokalizacje`,`locations available`],
+    [`zwrot z inwestycji`,`return on investment`],
+    [`w wellbeing`,`in wellbeing`],
+    [`HR: lepsza retencja`,`HR: better retention`],
+    [`po wdrożeniu`,`after rollout`],
+    [`Zobacz program z perspektywy swojej roli`,`See the programme from your role's perspective`],
+    [`Dyrektor HR / CHRO`,`HR Director / CHRO`],
+    [`CEO / Zarząd`,`CEO / Board`],
+    [`CFO / Finanse`,`CFO / Finance`],
+    [`Dla Dyrektora HR / CHRO`,`For the HR Director / CHRO`],
+    [`Benefit, który pracownicy naprawdę doceniają. I o którym mówią.`,`A benefit employees truly value. And talk about.`],
+    [`Karty sportowe, vouchery, paczki świąteczne — większość benefitów przemija niezauważona. Shared Hotels to regularny wypoczynek hotelowy, który pracownik planuje z rodziną i na który czeka. Benefit odczuwalny — nie wirtualny.`,`Sports cards, vouchers, Christmas parcels — most benefits pass by unnoticed. Shared Hotels is a regular hotel holiday that employees plan with their family and look forward to. A benefit that's felt — not virtual.`],
+    [`Realny, wysoki wskaźnik użycia benefitu — co roku, nie raz na kilka lat`,`A genuinely high benefit-usage rate — every year, not once every few years`],
+    [`Silny argument w employer brandingu i rekrutacji — konkretny, widoczny w ogłoszeniu`,`A strong argument in employer branding and recruitment — concrete, visible in the job ad`],
+    [`HR nie obsługuje hotelu — operator przejmuje całą operację, rezerwacje i komunikację z pracownikami`,`HR doesn't run a hotel — the operator takes over the entire operation, bookings and employee communication`],
+    [`Mierzalny wpływ na retencję — wskaźnik użycia co roku jako liczba do raportu zarządu`,`Measurable impact on retention — the annual usage rate as a figure for the board report`],
+    [`Program dopasowany do Twoich pracowników — ich zarobków, preferencji i struktury rodzinnej`,`A programme tailored to your employees — their earnings, preferences and family structure`],
+    [`Pracownicy w firmach z realnym wellbeingiem polecają pracodawcę`,`Employees at companies with genuine wellbeing recommend their employer`],
+    [`Umów spotkanie z Shared Hotels →`,`Book a meeting with Shared Hotels →`],
+    [`Dla CEO / Zarządu`,`For the CEO / Board`],
+    [`Realny benefit pracowniczy. Bez nowej operacji. Bez nowego ryzyka.`,`A real employee benefit. No new operation. No new risk.`],
+    [`Wellbeing pracowników to dziś kwestia strategiczna — wpływa na wyniki rekrutacji, retencję kluczowych ludzi i postrzeganie firmy przez kandydatów, partnerów i kontrahentów. Shared Hotels daje Ci realny, trwały program bez tworzenia nowej operacji.`,`Employee wellbeing is now a strategic issue — it affects recruitment results, the retention of key people and how the company is perceived by candidates, partners and contractors. Shared Hotels gives you a real, lasting programme without building a new operation.`],
+    [`Pracownicy gotowi odejść dla lepszego work-life balance`,`Employees ready to leave for a better work-life balance`],
+    [`Randstad Workmonitor 2023 · 35 000 pracowników · 34 kraje`,`Randstad Workmonitor 2023 · 35,000 employees · 34 countries`],
+    [`Firmy z silnym employer brandingiem obniżają koszty rekrutacji`,`Companies with strong employer branding lower recruitment costs`],
+    [`Firmy z programem wellbeingu obsadzają wakaty szybciej`,`Companies with a wellbeing programme fill vacancies faster`],
+    [`2× szybciej`,`2× faster`],
+    [`Niższe koszty rotacji — benefit, który realnie zatrzymuje ludzi w firmie`,`Lower turnover costs — a benefit that genuinely keeps people in the company`],
+    [`Silniejszy employer branding — konkretny wyróżnik w ogłoszeniu rekrutacyjnym`,`Stronger employer branding — a concrete differentiator in the job ad`],
+    [`Cała operacja hotelowa po stronie SH — Twoja firma skupia się na swojej branży`,`The entire hotel operation on SH's side — your company focuses on its own industry`],
+    [`Program finansowany z ZFŚS — bez angażowania budżetu operacyjnego`,`Funded from the ZFŚS — without engaging the operating budget`],
+    [`Trwały benefit na 10 lub 15 lat — nie jednorazowa akcja, ale element strategii personalnej`,`A lasting benefit for 10 or 15 years — not a one-off campaign, but part of HR strategy`],
+    [`Mierzalny wskaźnik ESG "S" — konkretna dana do raportu niefinansowego i dla kontrahentów`,`A measurable ESG "S" indicator — concrete data for non-financial reporting and for contractors`],
+    [`Dla CFO / Dyrektora Finansowego`,`For the CFO / Finance Director`],
+    [`Program z ZFŚS. Koszt dzielony. ROI w danych.`,`Funded from the ZFŚS. Cost shared. ROI in the data.`],
+    [`ZFŚS to gotowa pula — firma z 1 000 pracowników dysponuje ok. 2,7 mln zł rocznie (odpis 2025: ~2 723 zł/pracownika). Shared Hotels zamienia te środki w benefit, który pracownicy realnie odczuwają. Koszt dzielony z pracownikiem, dokładne widełki z analizy.`,`The ZFŚS is a ready-made pool — a company of 1,000 employees has around PLN 2.7 million a year (2025 allocation: ~PLN 2,723 per employee). Shared Hotels turns these funds into a benefit employees genuinely feel. Cost shared with the employee, exact ranges from the analysis.`],
+    [`Odpis na ZFŚS — gotowa pula na pracownika rocznie`,`ZFŚS allocation — a ready pool per employee per year`],
+    [`~2 723 zł`,`~PLN 2,723`],
+    [`Ustawa o ZFŚS · odpis podstawowy 2025`,`ZFŚS Act · basic allocation 2025`],
+    [`Koszt zastąpienia pracownika — % rocznego wynagrodzenia`,`Cost of replacing an employee — % of annual salary`],
+    [`Produkcja`,`Production`],
+    [`Specjalista`,`Specialist`],
+    [`Menedżer`,`Manager`],
+    [`Firm mierzących ROI wellbeingu odnotowuje pozytywny zwrot`,`of companies measuring wellbeing ROI report a positive return`],
+    [`Wellhub Return on Wellbeing Report 2024 · branżowa średnia`,`Wellhub Return on Wellbeing Report 2024 · industry average`],
+    [`Liderów HR raportuje zwrot €2 na każde €1 zainwestowane w wellbeing`,`of HR leaders report a €2 return for every €1 invested in wellbeing`],
+    [`Finansowanie z ZFŚS — dedykowana pula, nie budżet operacyjny`,`Funded from the ZFŚS — a dedicated pool, not the operating budget`],
+    [`Koszt dzielony: część pokrywa pracownik (Karta pobytowa SH — jednorazowo), część pracodawca (bon z ZFŚS)`,`Cost shared: part covered by the employee (SH Stay Card — one-off), part by the employer (a ZFŚS voucher)`],
+    [`Analiza finansowa dobrana do skali zatrudnienia i struktury wynagrodzeniowej`,`Financial analysis matched to headcount and salary structure`],
+    [`ROI mierzalny: niższy koszt rotacji i wyższe zaangażowanie — dane co roku z raportowania SH`,`Measurable ROI: lower turnover cost and higher engagement — annual data from SH reporting`],
+    [`Mierzalny wskaźnik ESG — konkretna dana do raportu niefinansowego i dla kontrahentów`,`A measurable ESG indicator — concrete data for non-financial reporting and for contractors`],
+    [`Program 10 lub 15 lat — rozłożony koszt, trwały efekt`,`A 10- or 15-year programme — spread cost, lasting effect`],
+    [`Wyzwania, które znasz`,`Challenges you know`],
+    [`Twoi pracownicy zasługują na więcej niż benefit, który istnieje tylko na papierze.`,`Your employees deserve more than a benefit that exists only on paper.`],
+    [`Rotacja nie ustaje, choć benefitów nie brakuje.`,`Turnover doesn't stop, even though there's no shortage of benefits.`],
+    [`Firm oferuje wellbeing`,`of companies offer wellbeing`],
+    [`Pracownicy realnie korzystają`,`employees actually use it`],
+    [`Źródło: Deloitte Global Wellbeing Survey 2023`,`Source: Deloitte Global Wellbeing Survey 2023`],
+    [`Budżet socjalny wydany. Efektu brak.`,`Social budget spent. No effect.`],
+    [`HR nie mierzy ROI z benefitów`,`of HR don't measure ROI on benefits`],
+    [`Mierzy i raportuje zarządowi`,`measure and report to the board`],
+    [`Źródło: SHRM Employee Benefits Survey 2023`,`Source: SHRM Employee Benefits Survey 2023`],
+    [`Pracownicy są wypaleni. Firma nie wie jak to realnie zmienić.`,`Employees are burnt out. The company doesn't know how to really change it.`],
+    [`Pracownicy wypaleni (2024)`,`Employees burnt out (2024)`],
+    [`Wypaleni w 2019`,`Burnt out in 2019`],
+    [`Źródło: Gallup State of the Global Workplace 2024`,`Source: Gallup State of the Global Workplace 2024`],
+    [`Jak to działa?`,`How it works?`],
+    [`Cztery kroki do wypoczynku,`,`Four steps to rest`],
+    [`który zmienia wyniki firmy.`,`that changes company results.`],
+    [`Shared Hotels dopasowuje program do Twojej organizacji, zabezpiecza bazę hotelową pod konkretne zamówienie i uruchamia benefit — Twoja firma nie staje się hotelarzem.`,`Shared Hotels tailors the programme to your organisation, secures hotel capacity for a specific order and launches the benefit — your company doesn't become a hotelier.`],
+    [`"Twój zespół wypoczęty. Operacja po naszej stronie."`,`"Your team rested. The operation on our side."`],
+    [`Wspólna rozmowa i dopasowanie do firmy`,`A joint conversation and tailoring to the company`],
+    [`Bezpłatna rozmowa wstępna. Omawiamy strukturę firmy, liczbę pracowników i cele programu — bez zobowiązań.`,`A free introductory call. We discuss the company structure, headcount and programme goals — no obligations.`],
+    [`SH przeprowadza analizę`,`SH carries out the analysis`],
+    [`Rekomendacje lokalizacji, skali i modelu finansowego — skrojone pod strukturę i budżet firmy.`,`Recommendations on location, scale and financial model — tailored to the company's structure and budget.`],
+    [`Pracownicy korzystają regularnie`,`Employees use it regularly`],
+    [`Karta pobytowa SH + bon z ZFŚS = regularny pobyt poza szczytem wakacyjnym. Operator zarządza rezerwacjami.`,`SH Stay Card + ZFŚS voucher = a regular stay outside the holiday peak. The operator manages bookings.`],
+    [`Firma widzi wyniki w ludziach i danych`,`The company sees results in people and data`],
+    [`Wyższe zaangażowanie, niższa rotacja, mniejsza absencja. Wskaźnik ESG jako efekt końcowy.`,`Higher engagement, lower turnover, less absence. The ESG indicator as the final result.`],
+    [`Jak to działa od środka`,`How it works on the inside`],
+    [`Z czego składa się korzyść pracownika.`,`What makes up the employee's benefit.`],
+    [`Dwie składowe finansowania tworzą benefit odczuwalny co roku — nie jednorazową akcję.`,`Two funding components create a benefit felt every year — not a one-off campaign.`],
+    [`Składnik 01`,`Component 01`],
+    [`Karta pobytowa SH`,`SH Stay Card`],
+    [`Pracownik nabywa ją jednorazowo w jednym z trzech poziomów: Brązowym (15% rabatu), Srebrnym (20%) lub Złotym (25%). Wyższy wkład własny oznacza wyższy stały rabat. Karta przypisana do pracownika — zostaje jego nawet po zmianie pracy.`,`The employee buys it once at one of three tiers: Bronze (15% discount), Silver (20%) or Gold (25%). A higher own contribution means a higher permanent discount. The card is assigned to the employee — it stays theirs even after changing jobs.`],
+    [`Składnik 02`,`Component 02`],
+    [`Bon z ZFŚS`,`ZFŚS voucher`],
+    [`Dokłada pracodawca ze środków Zakładowego Funduszu Świadczeń Socjalnych. Obniża realny koszt pobytu i zachęca do korzystania z urlopu poza letnim szczytem. Przenosi się na kolejnego pracownika obejmującego dane stanowisko.`,`Added by the employer from the Company Social Benefits Fund. It lowers the real cost of a stay and encourages taking leave outside the summer peak. It transfers to the next employee taking the given position.`],
+    [`Efekt dla pracodawcy`,`The effect for the employer`],
+    [`Benefit z twardym ROI`,`A benefit with hard ROI`],
+    [`Wyższe zaangażowanie, mniejsza absencja, niższe koszty rekrutacji. Program dostarcza mierzalne dane co roku — wskaźnik użycia, wpływ na rotację, wskaźnik ESG. Wszystko w jednym raporcie dla zarządu.`,`Higher engagement, less absence, lower recruitment costs. The programme delivers measurable data every year — usage rate, impact on turnover, ESG indicator. All in one report for the board.`],
+    [`Co mówią dyrektorzy HR`,`What HR directors say`],
+    [`Szukaliśmy benefitu, który pracownicy rzeczywiście będą chcieli używać — nie kolejnej karty sportowej. Program SH rozwiązał problem sezonowości urlopów, który mieliśmy od lat.`,`We were looking for a benefit employees would actually want to use — not another sports card. The SH programme solved the leave-seasonality problem we'd had for years.`],
+    [`Dyrektor HR · Firma produkcyjna, 2 400 pracowników`,`HR Director · Manufacturing company, 2,400 employees`],
+    [`Zarząd pytał o ROI z wellbeingu. Pierwszy raz mogliśmy pokazać konkretny wskaźnik — wskaźnik użycia benefitu i spadek rotacji w dziale produkcji o 18% rok do roku.`,`The board asked about wellbeing ROI. For the first time we could show a concrete figure — the benefit usage rate and an 18% year-on-year drop in turnover in the production department.`],
+    [`CHRO · Firma usługowa, 1 800 pracowników`,`CHRO · Services company, 1,800 employees`],
+    [`rotacji pracowników`,`employee turnover`],
+    [`lokalizacje SH`,`SH locations`],
+    [`Co zyskujesz`,`What you gain`],
+    [`Cztery wymiary korzyści.`,`Four dimensions of benefit.`],
+    [`Jeden program.`,`One programme.`],
+    [`Pracownicy zostają dłużej`,`Employees stay longer`],
+    [`Niższa rotacja — realny benefit o wysokim użyciu`,`Lower turnover — a real, high-usage benefit`],
+    [`Silniejszy employer branding i rekrutacja`,`Stronger employer branding and recruitment`],
+    [`Zaangażowanie i lojalność zespołu`,`Team engagement and loyalty`],
+    [`Budżet pracuje efektywnie`,`The budget works efficiently`],
+    [`Program finansowany z ZFŚS`,`Funded from the ZFŚS`],
+    [`Koszt dzielony z pracownikiem`,`Cost shared with the employee`],
+    [`Mierzalny ROI z inwestycji w wellbeing`,`Measurable ROI on wellbeing investment`],
+    [`ESG z realną treścią`,`ESG with real substance`],
+    [`Mierzalny wskaźnik "S" — do CSRD lub raportowania dobrowolnego`,`A measurable "S" indicator — for CSRD or voluntary reporting`],
+    [`Dane oczekiwane przez kontrahentów i banki`,`Data expected by contractors and banks`],
+    [`Atut wizerunkowy wobec kandydatów i partnerów`,`A reputational asset with candidates and partners`],
+    [`Lepsze planowanie dostępności`,`Better availability planning`],
+    [`Koniec z kumulacją urlopów w szczycie sezonu`,`No more leave piling up in peak season`],
+    [`Wypoczynek rozłożony równomiernie w roku`,`Rest spread evenly across the year`],
+    [`Przewidywalność dla operacji i managementu`,`Predictability for operations and management`],
+    [`Ciepłe kierunki przez większość roku.`,`Warm destinations for most of the year.`],
+    [`Obiekty w krajach o uregulowanym prawie własności nieruchomości i sprawdzonych rynkach hotelowych. Dobór lokalizacji na podstawie analizy dla Twojej firmy.`,`Properties in countries with well-regulated property ownership and proven hotel markets. Locations selected based on an analysis for your company.`],
+    [`Włochy`,`Italy`],
+    [`Turcja`,`Turkey`],
+    [`Hiszpania`,`Spain`],
+    [`Grecja`,`Greece`],
+    [`Cypr`,`Cyprus`],
+    [`Chorwacja`,`Croatia`],
+    [`Portugalia`,`Portugal`],
+    [`Maroko`,`Morocco`],
+    [`Wyspy Kanaryjskie`,`Canary Islands`],
+    [`Egipt`,`Egypt`],
+    [`Czarnogóra`,`Montenegro`],
+    [`Prezentowane kierunki to przykłady — ostateczne lokalizacje dobierane są w płatnej analizie dopasowanej do profilu Twojej organizacji. Shared Hotels nie odpowiada za organizację dojazdu.`,`The destinations shown are examples — final locations are selected in a paid analysis tailored to your organisation's profile. Shared Hotels is not responsible for arranging travel.`],
+    [`Kalkulator korzyści`,`Benefits calculator`],
+    [`Oszczędności Twojego pracownika`,`Your employee's savings`],
+    [`to Twoja przewaga na rynku.`,`are your edge in the market.`],
+    [`Skonfiguruj profil typowego uczestnika programu w Twojej firmie — kalkulator pokaże ile zyska pracownik. Pracownik, który odczuwa realną wartość benefitu, jest bardziej lojalny, wydajny i rzadziej odchodzi.`,`Configure the profile of a typical programme participant in your company — the calculator will show how much the employee gains. An employee who feels the real value of a benefit is more loyal, more productive and less likely to leave.`],
+    [`"Zobacz ile dzięki programowi SH zyska Twój pracownik — a razem z nim Twoja firma. Wzrost lojalności, mniejsza absencja, niższe koszty rotacji i silniejszy wizerunek pracodawcy to korzyści, których nie da się wpisać w jedną liczbę, ale da się je poczuć w każdym raporcie HR."`,`"See how much your employee — and with them your company — gains thanks to the SH programme. Greater loyalty, less absence, lower turnover costs and a stronger employer image are benefits that can't be captured in a single number, but can be felt in every HR report."`],
+    [`Twój profil`,`Your profile`],
+    [`Para`,`Couple`],
+    [`Rodzina 2+2`,`Family 2+2`],
+    [`Grupa`,`Group`],
+    [`(4 dorosłych)`,`(4 adults)`],
+    [`Rodzina wielodzietna`,`Large family`],
+    [`Destynacja`,`Destination`],
+    [`Tania`,`Budget`],
+    [`Egipt, Turcja`,`Egypt, Turkey`],
+    [`Średnia`,`Mid-range`],
+    [`Cypr, Grecja`,`Cyprus, Greece`],
+    [`Włochy, Hiszpania`,`Italy, Spain`],
+    [`Poziom karty pobytowej`,`Stay Card tier`],
+    [`— stały rabat na każdy pobyt`,`— a permanent discount on every stay`],
+    [`15% rabatu`,`15% discount`],
+    [`20% rabatu`,`20% discount`],
+    [`25% rabatu`,`25% discount`],
+    [`Premium: równowaga ceny karty i rabatu na pobyty.`,`Premium: a balance of card price and stay discount.`],
+    [`Sezon`,`Season`],
+    [`Ferie zimowe`,`Winter break`],
+    [`Wiosna`,`Spring`],
+    [`Lato`,`Summer`],
+    [`Jesień`,`Autumn`],
+    [`Zima`,`Winter`],
+    [`Termin bonu`,`Voucher term`],
+    [`10 lat`,`10 years`],
+    [`15 lat`,`15 years`],
+    [`Dochód na osobę w rodzinie`,`Income per person in the family`],
+    [`7 000 zł`,`PLN 7,000`],
+    [`2 500 zł`,`PLN 2,500`],
+    [`11 500 zł`,`PLN 11,500`],
+    [`Noce w roku`,`Nights per year`],
+    [`5 nocy`,`5 nights`],
+    [`28 nocy`,`28 nights`],
+    [`Oszczędzasz przez cały okres`,`You save over the whole period`],
+    [`Karta pobytowa SH ·`,`SH Stay Card ·`],
+    [`płacisz raz`,`you pay once`],
+    [`zależy od dochodu`,`depends on income`],
+    [`Pracodawca dopłaca z ZFŚS`,`Employer top-up from the ZFŚS`],
+    [`Cena za noc`,`Price per night`],
+    [`Jeden pobyt w roku`,`One stay per year`],
+    [`Co to oznacza dla Twojej firmy?`,`What does this mean for your company?`],
+    [`mniejsza absencja i niższe koszty rotacji`,`less absence and lower turnover costs`],
+    [`mierzalny wskaźnik ESG`,`a measurable ESG indicator`],
+    [`Stawki za noc i ceny są poglądowe — ostateczne kwoty zależą od konkretnych obiektów i bieżących cen. Wynik to szacunek, nie oferta. Traktowanie podatkowe (zwolnienie z PIT dopłaty do wypoczynku dzieci, limity dla dorosłych) zależy od formy świadczenia i wymaga potwierdzenia z doradcą; operator musi być zarejestrowany jako organizator wypoczynku, aby część dziecięca korzystała ze zwolnienia bez limitu. Dopłatę pracodawcy z ZFŚS rozkłada się na 5 lat; termin bonu (10 lub 15 lat) to czas korzystania z wakacji i jest niezależny od okresu spłaty. Stan na 2026.`,`Per-night rates and prices are indicative — final amounts depend on the specific properties and current prices. The result is an estimate, not an offer. Tax treatment (PIT exemption for the children's holiday subsidy, limits for adults) depends on the form of the benefit and requires confirmation with an adviser; the operator must be registered as a holiday organiser for the children's part to be exempt without a limit. The employer's ZFŚS top-up is spread over 5 years; the voucher term (10 or 15 years) is the holiday usage period and is independent of the repayment period. As of 2026.`],
+    [`Odpowiedzi na pytania, które masz.`,`Answers to the questions you have.`],
+    [`Jak mierzalne są efekty programu dla retencji?`,`How measurable are the programme's effects on retention?`],
+    [`Firmy z programami wellbeingowymi notują 25–40% niższy wskaźnik rotacji (dane branżowe). SH dostarcza mierzalny wskaźnik użycia benefitu co roku — konkretna liczba do raportu HR i zarządu.`,`Companies with wellbeing programmes record a 25–40% lower turnover rate (industry data). SH delivers a measurable benefit-usage rate every year — a concrete figure for the HR and board report.`],
+    [`Ile pracy spada na HR przy wdrożeniu i obsłudze programu?`,`How much work falls on HR to implement and run the programme?`],
+    [`SH komunikuje program bezpośrednio pracownikom — HR zatwierdza i organizuje spotkania informacyjne. Operator przejmuje rezerwacje, obsługę i raportowanie. Dział HR nie zarządza hotelem.`,`SH communicates the programme directly to employees — HR approves and arranges information meetings. The operator takes over bookings, support and reporting. The HR department doesn't manage a hotel.`],
+    [`Jak pracownik rezerwuje pobyt i czy ma gwarancję dostępności?`,`How does an employee book a stay and is availability guaranteed?`],
+    [`Rezerwacja przez operatora SH. Poza sezonem letnim uczestnicy programu mają pierwszeństwo przed klientem komercyjnym — to zabezpiecza realną dostępność. Szczegóły w prospekcie.`,`Booking through the SH operator. Outside the summer season, programme participants take priority over commercial clients — this secures real availability. Details in the brochure.`],
+    [`Czy program angażuje własny budżet operacyjny firmy?`,`Does the programme use the company's own operating budget?`],
+    [`Nie. Program finansowany z ZFŚS — firma nie angażuje budżetu operacyjnego. Koszt bonu dzielony z pracownikiem, który nabywa Kartę pobytową SH jednorazowo.`,`No. The programme is funded from the ZFŚS — the company doesn't use its operating budget. The voucher cost is shared with the employee, who buys the SH Stay Card once.`],
+    [`Jak program wpisuje się w ESG i raportowanie CSRD?`,`How does the programme fit into ESG and CSRD reporting?`],
+    [`Od 18 marca 2026 (dyrektywa Omnibus I) obowiązek CSRD dotyczy firm powyżej 1 000 pracowników i obrotu 450 mln €, pierwsze raporty w 2028. Wiele firm dobrowolnie raportuje ESG wcześniej — coroczny wypoczynek to konkretny, mierzalny wskaźnik "S".`,`From 18 March 2026 (the Omnibus I directive) the CSRD obligation applies to companies above 1,000 employees and €450m turnover, with first reports in 2028. Many companies voluntarily report ESG earlier — annual holidays are a concrete, measurable "S" indicator.`],
+    [`Stan na 2026 — do potwierdzenia z doradcą.`,`As of 2026 — to be confirmed with an adviser.`],
+    [`Co się dzieje z programem, gdy pracownik odchodzi z firmy?`,`What happens to the programme when an employee leaves the company?`],
+    [`Program jest wieloletni (10 lub 15 lat). Karta pobytowa SH pozostaje przy pracowniku — on dalej korzysta z rabatów. Bon z ZFŚS przechodzi na następną osobę na tym stanowisku. Zasady precyzuje analiza i umowa.`,`The programme is multi-year (10 or 15 years). The SH Stay Card stays with the employee — they keep using the discounts. The ZFŚS voucher passes to the next person in that position. The rules are set out in the analysis and contract.`],
+    [`Co firma dostaje z płatnej analizy?`,`What does the company get from the paid analysis?`],
+    [`Rekomendacje: skala programu, lokalizacje, model kosztowy, preferencje pracowników, wstępny biznesplan — plan dla Twojej organizacji, nie ogólna prezentacja.`,`Recommendations: programme scale, locations, cost model, employee preferences, an initial business plan — a plan for your organisation, not a generic presentation.`],
+    [`Jaki jest rząd wielkości kosztu dla pracodawcy?`,`What's the order of magnitude of the cost for the employer?`],
+    [`Poglądowo: dopłata z ZFŚS rozłożona na 5 lat to ok. €120–€650 na uczestnika rocznie, zależnie od profilu rodziny, destynacji i typu apartamentu. Dokładne widełki wynikają z analizy.`,`For guidance: the ZFŚS top-up spread over 5 years is about €120–€650 per participant per year, depending on family profile, destination and apartment type. Exact ranges come from the analysis.`],
+    [`Wartości orientacyjne · Stan na 2026 — do potwierdzenia z doradcą.`,`Indicative values · As of 2026 — to be confirmed with an adviser.`],
+    [`Czy ZFŚS może pokryć koszty analizy?`,`Can the ZFŚS cover the cost of the analysis?`],
+    [`Tak. Analiza może być zrealizowana jako warsztat z zakresu benefitów pracowniczych — co otwiera możliwość finansowania z ZFŚS. Bony finansowane z ZFŚS, nie z budżetu operacyjnego.`,`Yes. The analysis can be delivered as a workshop on employee benefits — which opens the option of funding from the ZFŚS. Vouchers are funded from the ZFŚS, not the operating budget.`],
+    [`Kto jest właścicielem obiektów i co chroni ciągłość programu?`,`Who owns the properties and what protects the programme's continuity?`],
+    [`Obiekty utrzymuje wyodrębniona struktura (np. spółka celowa), oddzielona od bieżącego ryzyka operacyjnego. Tytuł własności oraz licencje turystyczne zabezpieczają ciągłość wieloletniego benefitu.`,`The properties are held by a separate structure (e.g. a special-purpose vehicle), isolated from day-to-day operating risk. Title of ownership and tourism licences secure the continuity of the multi-year benefit.`],
+    [`Chcesz zobaczyć jak to działa w Twojej firmie?`,`Want to see how it works in your company?`],
+    [`Bezpłatny prospekt z podstawowymi informacjami o programie. Bez zobowiązań. PDF trafi na Twój email natychmiast po wypełnieniu formularza.`,`A free brochure with the basic information about the programme. No obligations. The PDF reaches your email immediately after you fill in the form.`],
+    [`Logika systemu i schemat działania programu`,`The system logic and the programme's operating scheme`],
+    [`Korzyści dla pracodawcy, HR, zarządu i CFO`,`Benefits for the employer, HR, board and CFO`],
+    [`Model finansowania z ZFŚS — krok po kroku`,`The ZFŚS funding model — step by step`],
+    [`Jak wygląda płatna analiza i kolejne kroki`,`What the paid analysis looks like and the next steps`],
+    [`Wyślemy PDF natychmiast — i skontaktujemy się w ciągu 24–48h.`,`We'll send the PDF immediately — and get in touch within 24–48h.`],
+    [`Imię i nazwisko`,`Full name`],
+    [`Służbowy email`,`Work email`],
+    [`Firma`,`Company`],
+    [`Stanowisko`,`Position`],
+    [`Liczba pracowników`,`Number of employees`],
+    [`Wybierz przedział`,`Select a range`],
+    [`Powyżej 25 000`,`Over 25,000`],
+    [`Obszar zainteresowania`,`Area of interest`],
+    [`Wybierz`,`Select`],
+    [`Finanse / ZFŚS`,`Finance / ZFŚS`],
+    [`Zarząd / ESG`,`Board / ESG`],
+    [`Wyślij mi prospekt →`,`Send me the brochure →`],
+    [`Wysyłając formularz, akceptujesz`,`By submitting the form, you accept`],
+    [`Politykę prywatności`,`the Privacy Policy`],
+    [`. Twoje dane przetwarzamy zgodnie z RODO. Nie wysyłamy spamu.`,`. We process your data in line with GDPR. We don't send spam.`],
+    [`Prospekt wysłany.`,`Brochure sent.`],
+    [`Sprawdź swoją skrzynkę email. Skontaktujemy się z Tobą w ciągu 24–48 godzin.`,`Check your inbox. We'll contact you within 24–48 hours.`],
+    [`Następny krok`,`Next step`],
+    [`Nie sprzedajemy produktu z półki.`,`We don't sell an off-the-shelf product.`],
+    [`Najpierw rozmawiamy.`,`First we talk.`],
+    [`Każdy program Shared Hotels jest dopasowany do konkretnej firmy — na podstawie płatnej analizy potrzeb i struktury Twojej organizacji.`,`Every Shared Hotels programme is tailored to a specific company — based on a paid analysis of the needs and structure of your organisation.`],
+    [`Umów rozmowę →`,`Book a call →`],
+    [`Konsultacja telefoniczna`,`Phone consultation`],
+    [`Umów bezpłatną rozmowę`,`Book a free call`],
+    [`Oddzwonimy w wybranym przez Ciebie terminie. Rozmowa niezobowiązująca, ok. 20 minut — opowiemy jak program może wyglądać w Twojej firmie.`,`We'll call you back at a time you choose. A no-obligation call, about 20 minutes — we'll explain how the programme could look in your company.`],
+    [`Telefon`,`Phone`],
+    [`Preferowana data`,`Preferred date`],
+    [`Pora dnia, o której mamy zadzwonić`,`Time of day for us to call`],
+    [`Rano`,`Morning`],
+    [`Południe`,`Midday`],
+    [`Popołudnie`,`Afternoon`],
+    [`Wieczór`,`Evening`],
+    [`Zamów oddzwonienie →`,`Request a callback →`],
+    [`Wykorzystamy je wyłącznie do umówienia rozmowy, zgodnie z`,`We'll use it solely to arrange the call, in line with`],
+    [`(RODO). Bez zobowiązań.`,`(GDPR). No obligations.`],
+    [`Termin zarezerwowany.`,`Slot booked.`],
+    [`Oddzwonimy w wybranym terminie.`,`We'll call you back at the chosen time.`],
+    [`Zamknij`,`Close`],
+    [`Polityka prywatności`,`Privacy Policy`],
+    [`Kontakt`,`Contact`]
+  ];
+  var DICT = {}; PAIRS.forEach(function(p){ DICT[p[0]] = p[1]; });
+
+  var ATTR = {
+    "Jan Kowalski":"John Smith",
+    "jan@firma.pl":"john@company.com",
+    "Nazwa firmy":"Company name",
+    "Dyrektor HR":"HR Director"
+  };
+  var META = {
+    titlePL: "Shared Hotels — Program Wypoczynku Pracowniczego | Benefit z ZFŚS",
+    titleEN: "Shared Hotels — Employee Holiday Programme | A ZFŚS Benefit",
+    descPL: "Shared Hotels — program regularnego wypoczynku hotelowego dla dużych pracodawców",
+    descEN: "Shared Hotels — a regular hotel holiday programme for large employers"
+  };
+
+  function skip(node){
+    var p = node.parentNode;
+    if(!p) return true;
+    var nn = p.nodeName;
+    if(nn==='SCRIPT'||nn==='STYLE'||nn==='NOSCRIPT') return true;
+    if(p.closest && p.closest('[data-no-i18n]')) return true;
+    return false;
+  }
+
+  function translateText(lang){
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    var nodes = [], n;
+    while(n = w.nextNode()){ if(n.nodeValue.trim() && !skip(n)) nodes.push(n); }
+    nodes.forEach(function(node){
+      if(node.__pl === undefined) node.__pl = node.nodeValue;
+      var key = node.__pl.trim();
+      if(lang==='en' && DICT[key] !== undefined){
+        node.nodeValue = node.__pl.replace(key, DICT[key]);
+      } else {
+        node.nodeValue = node.__pl;
+      }
+    });
+    // atrybuty (placeholdery)
+    document.querySelectorAll('[placeholder]').forEach(function(el){
+      if(el.__ph === undefined) el.__ph = el.getAttribute('placeholder');
+      var v = el.__ph;
+      el.setAttribute('placeholder', (lang==='en' && ATTR[v]) ? ATTR[v] : v);
+    });
+  }
+
+  function applyLang(lang){
+    window.LANG = lang;
+    try{ localStorage.setItem('sh_lang', lang); }catch(e){}
+    document.documentElement.setAttribute('lang', lang);
+    translateText(lang);
+    document.title = (lang==='en') ? META.titleEN : META.titlePL;
+    var md = document.querySelector('meta[name=description]');
+    if(md) md.setAttribute('content', (lang==='en') ? META.descEN : META.descPL);
+    // odśwież teksty kalkulatora w nowym języku
+    if(typeof window.calcUpdate === 'function'){ try{ window.calcUpdate(); }catch(e){} }
+    // aktualizacja przełączników
+    var nav = document.getElementById('langToggle'); if(nav) nav.textContent = (lang==='en')?'PL':'EN';
+    document.querySelectorAll('[data-lang-opt]').forEach(function(s){
+      s.style.opacity = (s.getAttribute('data-lang-opt')===lang) ? '1' : '.4';
+      s.style.fontWeight = (s.getAttribute('data-lang-opt')===lang) ? '600' : '400';
+    });
+  }
+  window.setLang = applyLang;
+
+  /* ---- dwujęzyczne wersje funkcji kalkulatora i formularzy ---- */
+  var cardMicroEN = {
+    standard:`Standard: a cheaper card, a lower permanent discount on every night.`,
+    premium:`Premium: a balance of card price and stay discount.`,
+    prestige:`Prestige: cheaper every night, a higher card price.`
+  };
+
+  window.calcUpdate = function(){
+    var EN = window.LANG==='en';
+    var income=parseInt(document.getElementById('cr-income').value);
+    var nights=parseInt(document.getElementById('cr-nights').value);
+    var grp=income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, EN?',':' ');
+    document.getElementById('cv-income').textContent = EN ? ('PLN '+grp) : (grp+' zł');
+    document.getElementById('cv-nights').textContent=nights;
+    var profil=cState.family, dest=cState.dest, poziom=cState.card, sezon=cState.season;
+    var termin=parseInt(cState.term);
+    var lokal=cenaLokalu[profil][dest];
+    var karta0=kartaBazowa[profil][dest];
+    var pokrycie=pokrycieMap[cState.term];
+    var baseBon=pokrycie*lokal/30 - karta0;
+    var mnoznik=1.25 - (income-2500)/9000*0.5;
+    mnoznik=Math.max(0.75, Math.min(1.25, mnoznik));
+    var bonZFS=Math.max(0, baseBon*mnoznik);
+    var korektaDochodu=baseBon-bonZFS;
+    var kartaPracownik=Math.max(0, karta0*mnoznikCenyKarty[poziom]+korektaDochodu);
+    var rabat=Math.min(0.90, rabatKarty[poziom]+dodatkowyRabatBonu[sezon]);
+    var nocKom=bazaNoc[dest]*gf[profil];
+    var nocPrac=nocKom*(1-rabat);
+    var pobytKom=nocKom*nights;
+    var pobytPrac=nocPrac*nights;
+    var okresKom=pobytKom*termin;
+    var okresPracNoce=pobytPrac*termin;
+    var wydatek=kartaPracownik+okresPracNoce;
+    var oszczednosc=okresKom-wydatek;
+    var rataRoczna=bonZFS/5;
+    var rabatPct=Math.round(rabat*100);
+    document.getElementById('cr-saving').textContent=eur(oszczednosc);
+    document.getElementById('cr-saving-sub').textContent = EN
+      ? ('A holiday worth '+eur(okresKom)+', and you pay '+eur(wydatek)+' in total (card + nights) over '+termin+' years.')
+      : ('Wakacje warte '+eur(okresKom)+', a płacisz łącznie '+eur(wydatek)+' (karta + noclegi) przez '+termin+' lat.');
+    document.getElementById('cr-card-name').textContent=cardNames[poziom];
+    document.getElementById('cr-card').textContent=eur(kartaPracownik);
+    document.getElementById('cr-zfss').textContent=eur(bonZFS);
+    document.getElementById('cr-zfss-sub').textContent = EN
+      ? ('5-year instalment: '+eur(rataRoczna)+'/year')
+      : ('rata 5 lat: '+eur(rataRoczna)+'/rok');
+    document.getElementById('cr-night').textContent=eur(nocPrac);
+    document.getElementById('cr-night-sub').textContent = EN
+      ? ('instead of '+eur(nocKom)+' (−'+rabatPct+'%)')
+      : ('zamiast '+eur(nocKom)+' (−'+rabatPct+'%)');
+    document.getElementById('cr-stay').textContent=eur(pobytPrac);
+    document.getElementById('cr-stay-sub').textContent = EN
+      ? ('instead of '+eur(pobytKom)+' for '+nights+' nights')
+      : ('zamiast '+eur(pobytKom)+' za '+nights+' nocy');
+    document.getElementById('cr-card-micro').textContent = EN ? cardMicroEN[poziom] : cardMicro[poziom];
+    var note;
+    if(sezon==='lato'){
+      note = EN
+        ? ('In summer only the card’s permanent discount applies — '+Math.round(rabatKarty[poziom]*100)+'%. The voucher lowers prices outside the holidays, where the saving is greatest.')
+        : ('Latem działa sam stały rabat karty — '+Math.round(rabatKarty[poziom]*100)+'%. Bon obniża ceny poza wakacjami, gdzie oszczędność jest największa.');
+    } else if(profil==='rodzina22'||profil==='wielodzietna'){
+      note = EN
+        ? 'Employer top-up free of PIT tax (subsidy for children’s holidays).'
+        : 'Dopłata pracodawcy bez podatku PIT (dofinansowanie wypoczynku dzieci).';
+    } else {
+      note = EN
+        ? 'Outside summer you pay a fraction of the normal rate. The employer top-up is spread over 5 years.'
+        : 'Poza latem płacisz ułamek normalnej stawki. Dopłatę pracodawcy rozkłada się na 5 lat.';
+    }
+    document.getElementById('cr-note').textContent=note;
+    document.getElementById('cr-employer-text').innerHTML = EN
+      ? ('Your employee genuinely saves '+eur(oszczednosc)+' over '+termin+' years — a benefit you can see. Greater loyalty, <strong>less absence and lower turnover costs</strong>, even leave planning and <strong>a measurable ESG indicator</strong> for the board report.')
+      : ('Twój pracownik realnie oszczędza '+eur(oszczednosc)+' przez '+termin+' lat — benefit, który widać. Wzrost lojalności, <strong>mniejsza absencja i niższe koszty rotacji</strong>, równomierne planowanie urlopów i <strong>mierzalny wskaźnik ESG</strong> do raportu zarządu.');
+  };
+
+  window.submitForm = function(e){
+    e.preventDefault();
+    var EN = window.LANG==='en';
+    var form = document.getElementById('prospektForm');
+    if(form._honey && form._honey.value) return;
+    var btn = document.getElementById('prospektSubmit');
+    setBtnLoading(btn, EN?'Sending…':'Wysyłanie…');
+    sendForm(form).then(function(){
+      document.getElementById('formBox').style.display='none';
+      document.getElementById('formSuccess').style.display='block';
+    }).catch(function(){
+      resetBtn(btn);
+      alert(EN?'Could not send the form. Please try again or email office@sharedhotels.com.':'Nie udało się wysłać formularza. Spróbuj ponownie lub napisz na office@sharedhotels.com.');
+    });
+  };
+
+  window.submitConsult = function(e){
+    e.preventDefault();
+    var EN = window.LANG==='en';
+    var form = document.getElementById('consultForm');
+    if(form._honey && form._honey.value) return;
+    var dateVal=document.getElementById('consultDate').value;
+    var dateText=dateVal;
+    try{ var d=new Date(dateVal+'T00:00:00'); dateText=d.toLocaleDateString(EN?'en-GB':'pl-PL',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }catch(err){}
+    var active=document.querySelector('#consultTime .ctb.active');
+    var timeText=active?active.textContent.trim().replace(/\s+/,' '):'';
+    var btn = document.getElementById('consultSubmit');
+    setBtnLoading(btn, EN?'Sending…':'Wysyłanie…');
+    sendForm(form).then(function(){
+      document.getElementById('consultSuccessSub').textContent = EN
+        ? ('We’ll call you back on '+dateText+', '+timeText+'. We’ve also sent a confirmation to your email. Talk soon!')
+        : ('Oddzwonimy '+dateText+', w porze: '+timeText+'. Potwierdzenie wysłaliśmy też na Twój e-mail. Do usłyszenia!');
+      document.getElementById('consultFormWrap').style.display='none';
+      document.getElementById('consultSuccess').style.display='block';
+    }).catch(function(){
+      resetBtn(btn);
+      alert(EN?'Could not book the slot. Please try again or email office@sharedhotels.com.':'Nie udało się zarezerwować terminu. Spróbuj ponownie lub napisz na office@sharedhotels.com.');
+    });
+  };
+
+  /* ---- budowa przełączników UI ---- */
+  function buildToggles(){
+    // przycisk w nawigacji
+    var navLinks = document.querySelector('#navbar .nav-links') || document.querySelector('.nav-links');
+    var navCta = document.querySelector('#navbar .nav-cta');
+    if(navLinks && !document.getElementById('langToggle')){
+      var a = document.createElement('a');
+      a.id = 'langToggle'; a.href = 'javascript:void(0)'; a.className = 'nav-link';
+      a.setAttribute('data-no-i18n','');
+      a.style.cursor='pointer'; a.style.letterSpacing='.12em'; a.style.display='inline-block';
+      a.addEventListener('click', function(){ applyLang(window.LANG==='en'?'pl':'en'); });
+      if(navCta) navLinks.insertBefore(a, navCta); else navLinks.appendChild(a);
+    }
+    // stopka: PL / EN
+    var foot = [].slice.call(document.querySelectorAll('footer span')).filter(function(s){return /PL\s*\/\s*EN/.test(s.textContent);})[0];
+    if(foot){
+      foot.setAttribute('data-no-i18n','');
+      foot.innerHTML = '<span data-lang-opt="pl" style="cursor:pointer">PL</span> / <span data-lang-opt="en" style="cursor:pointer">EN</span>';
+      foot.querySelector('[data-lang-opt=pl]').addEventListener('click', function(){ applyLang('pl'); });
+      foot.querySelector('[data-lang-opt=en]').addEventListener('click', function(){ applyLang('en'); });
+    }
+  }
+
+  function init(){
+    buildToggles();
+    var saved = 'pl';
+    try{ saved = localStorage.getItem('sh_lang') || 'pl'; }catch(e){}
+    applyLang(saved);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
 </body>
 </html>
