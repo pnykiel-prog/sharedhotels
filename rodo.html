@@ -185,5 +185,260 @@ footer{background:#111110;padding:2.4rem 6%;display:flex;align-items:center;just
   <span style="font-size:.78rem;color:rgba(255,255,255,.28);letter-spacing:.12em;">PL / EN</span>
 </footer>
 
+<script>
+/* I18N dla podstron (RODO / Polityka prywatności) — przełącznik PL/EN */
+(function(){
+  var PAIRS = [
+    [`← Powrót na stronę główną`,`← Back to home`],
+    [`Polityka prywatności`,`Privacy Policy`],
+    [`Polityce prywatności`,`Privacy Policy`],
+    [`Kontakt`,`Contact`],
+    [`Siedziba`,`Registered office`],
+    [`Telefon`,`Phone`],
+    /* ===== RODO ===== */
+    [`Obowiązek informacyjny · art. 13 RODO`,`Information obligation · Art. 13 GDPR`],
+    [`Klauzula informacyjna`,`Information clause`],
+    [`RODO`,`GDPR`],
+    [`Zgodnie z art. 13 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO) przedstawiamy informacje o przetwarzaniu danych osobowych osób korzystających z serwisu Shared Hotels.`,`In accordance with Article 13 of Regulation (EU) 2016/679 of the European Parliament and of the Council (GDPR), we provide information on the processing of personal data of users of the Shared Hotels website.`],
+    [`Administrator danych`,`Data controller`],
+    [`Kontakt w sprawach ochrony danych:`,`Contact for data protection matters:`],
+    [`. Nie wyznaczono Inspektora Ochrony Danych.`,`. No Data Protection Officer has been appointed.`],
+    [`Cele i podstawy prawne`,`Purposes and legal bases`],
+    [`Twoje dane przetwarzamy w celu:`,`We process your data for the purpose of:`],
+    [`obsługi zapytania i przesłania prospektu oraz umówienia konsultacji — na podstawie`,`handling your enquiry and sending the brochure and arranging a consultation — on the basis of`],
+    [`art. 6 ust. 1 lit. b`,`Art. 6(1)(b)`],
+    [`(działania przed zawarciem umowy) oraz`,`(steps prior to entering into a contract) and`],
+    [`lit. f`,`point (f)`],
+    [`RODO (uzasadniony interes);`,`GDPR (legitimate interest);`],
+    [`marketingu własnych usług — na podstawie`,`marketing of our own services — on the basis of`],
+    [`art. 6 ust. 1 lit. f`,`Art. 6(1)(f)`],
+    [`, a w zakresie komunikacji elektronicznej i telefonicznej na podstawie`,`, and for electronic and telephone communication on the basis of`],
+    [`lit. a`,`point (a)`],
+    [`(zgoda);`,`(consent);`],
+    [`ustalenia, dochodzenia lub obrony roszczeń oraz zapewnienia bezpieczeństwa serwisu — na podstawie`,`establishing, pursuing or defending claims and ensuring the security of the website — on the basis of`],
+    [`realizacji obowiązków prawnych — na podstawie`,`fulfilling legal obligations — on the basis of`],
+    [`art. 6 ust. 1 lit. c`,`Art. 6(1)(c)`],
+    [`RODO.`,`GDPR.`],
+    [`Zakres danych`,`Scope of data`],
+    [`Przetwarzamy dane, które samodzielnie nam przekazujesz w formularzach: imię i nazwisko, adres e-mail, numer telefonu, nazwę firmy, stanowisko, liczbę pracowników, obszar zainteresowania oraz preferowany termin kontaktu, a także ograniczone dane techniczne (logi serwera).`,`We process the data you provide to us in the forms: full name, email address, phone number, company name, position, number of employees, area of interest and preferred contact time, as well as limited technical data (server logs).`],
+    [`Odbiorcy i okres przechowywania`,`Recipients and retention period`],
+    [`Odbiorcami danych mogą być zaufani dostawcy usług działający na nasze zlecenie (hosting, poczta i CRM, obsługa księgowa i prawna) — na podstawie umów powierzenia. Dane przechowujemy przez okres niezbędny do realizacji celu, nie dłużej niż przez okres przedawnienia roszczeń lub wymagany przepisami prawa; dane kontaktowe z niezakończonych zapytań — do 12 miesięcy lub do zgłoszenia sprzeciwu.`,`Recipients of the data may be trusted service providers acting on our behalf (hosting, email and CRM, accounting and legal services) — under data-processing agreements. We retain data for the period necessary to achieve the purpose, no longer than the limitation period for claims or as required by law; contact data from unfinished enquiries — up to 12 months or until you object.`],
+    [`Przekazywanie poza EOG`,`Transfers outside the EEA`],
+    [`Dane przetwarzamy zasadniczo w EOG. Ewentualne przekazanie poza EOG następuje wyłącznie przy zastosowaniu zabezpieczeń wymaganych przez RODO (standardowe klauzule umowne lub decyzja o odpowiednim stopniu ochrony).`,`We process data essentially within the EEA. Any transfer outside the EEA takes place only with the safeguards required by the GDPR (standard contractual clauses or an adequacy decision).`],
+    [`Twoje prawa`,`Your rights`],
+    [`Przysługuje Ci prawo do:`,`You have the right to:`],
+    [`dostępu do danych i ich kopii,`,`access your data and obtain a copy,`],
+    [`sprostowania danych,`,`rectify your data,`],
+    [`usunięcia danych,`,`erase your data,`],
+    [`ograniczenia przetwarzania,`,`restrict processing,`],
+    [`przenoszenia danych,`,`data portability,`],
+    [`sprzeciwu wobec przetwarzania,`,`object to processing,`],
+    [`cofnięcia zgody w dowolnym momencie,`,`withdraw consent at any time,`],
+    [`skargi do organu nadzorczego.`,`lodge a complaint with the supervisory authority.`],
+    [`Organ nadzorczy:`,`Supervisory authority:`],
+    [`Prezes Urzędu Ochrony Danych Osobowych`,`President of the Personal Data Protection Office (PUODO)`],
+    [`, ul. Stawki 2, 00-193 Warszawa. Wycofanie zgody nie wpływa na zgodność z prawem przetwarzania dokonanego przed jej wycofaniem.`,`, 2 Stawki St., 00-193 Warsaw. Withdrawing consent does not affect the lawfulness of processing carried out before its withdrawal.`],
+    [`Dobrowolność oraz brak profilowania`,`Voluntary nature and no profiling`],
+    [`Podanie danych jest dobrowolne, lecz niezbędne do przesłania prospektu lub umówienia konsultacji. Nie podejmujemy decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu, w tym profilowaniu, wywołujących wobec Ciebie skutki prawne.`,`Providing data is voluntary but necessary to send the brochure or arrange a consultation. We do not make decisions based solely on automated processing, including profiling, that produce legal effects concerning you.`],
+    [`Pełny opis zasad przetwarzania danych, w tym informacje o plikach cookies i pamięci lokalnej, znajdziesz w naszej`,`A full description of how we process data, including information about cookies and local storage, can be found in our`],
+    [`Ostatnia aktualizacja: 8 czerwca 2026`,`Last updated: 8 June 2026`],
+    /* ===== POLITYKA PRYWATNOŚCI ===== */
+    [`Ochrona danych osobowych · RODO / GDPR`,`Personal data protection · GDPR`],
+    [`Polityka`,`Privacy`],
+    [`prywatności`,`Policy`],
+    [`Ostatnia aktualizacja:`,`Last updated:`],
+    [`8 czerwca 2026`,`8 June 2026`],
+    [`Obowiązuje od:`,`Effective from:`],
+    [`Zakres:`,`Scope:`],
+    [`serwis Shared Hotels`,`the Shared Hotels website`],
+    [`Spis treści`,`Table of contents`],
+    [`Kontakt w sprawie danych`,`Contact about data`],
+    [`Jakie dane zbieramy`,`What data we collect`],
+    [`Okres przechowywania`,`Retention period`],
+    [`Odbiorcy danych`,`Data recipients`],
+    [`Dobrowolność podania danych`,`Voluntary provision of data`],
+    [`Profilowanie`,`Profiling`],
+    [`Pliki cookies`,`Cookies`],
+    [`Bezpieczeństwo`,`Security`],
+    [`Zmiany polityki`,`Policy changes`],
+    [`Prywatność osób korzystających z serwisu Shared Hotels traktujemy priorytetowo. Poniżej wyjaśniamy —`,`We treat the privacy of users of the Shared Hotels website as a priority. Below we explain —`],
+    [`w sposób przejrzysty i zgodny z RODO`,`transparently and in line with the GDPR`],
+    [`— jakie dane zbieramy, w jakim celu, na jakiej podstawie prawnej oraz jakie prawa Ci przysługują.`,`— what data we collect, for what purpose, on what legal basis and what rights you have.`],
+    [`Administrator danych osobowych`,`Personal data controller`],
+    [`Administratorem Twoich danych osobowych — czyli podmiotem decydującym o celach i sposobach ich przetwarzania — jest:`,`The controller of your personal data — i.e. the entity deciding on the purposes and means of its processing — is:`],
+    [`W dalszej części niniejszej Polityki Administrator określany jest również jako „`,`In the rest of this Policy, the Controller is also referred to as "`],
+    [`my`,`we`],
+    [`nas`,`us`],
+    [`" lub „`,`" or "`],
+    [`Kontakt w sprawie danych osobowych`,`Contact regarding personal data`],
+    [`We wszystkich sprawach związanych z przetwarzaniem danych osobowych oraz realizacją przysługujących Ci praw możesz skontaktować się z nami:`,`For all matters relating to the processing of personal data and exercising your rights, you can contact us:`],
+    [`e-mailowo:`,`by email:`],
+    [`telefonicznie:`,`by phone:`],
+    [`listownie: na adres siedziby wskazany w punkcie 1.`,`by post: to the registered office address given in point 1.`],
+    [`Nie powołaliśmy Inspektora Ochrony Danych (IOD), ponieważ nie wymagają tego przepisy RODO. Powyższy kontakt jest dedykowanym punktem kontaktowym w sprawach ochrony danych.`,`We have not appointed a Data Protection Officer (DPO), as this is not required by the GDPR. The contact above is the dedicated contact point for data protection matters.`],
+    [`Jakie dane zbieramy i skąd je mamy`,`What data we collect and where it comes from`],
+    [`Przetwarzamy wyłącznie dane, które samodzielnie nam przekazujesz, oraz ograniczone dane techniczne zbierane automatycznie podczas korzystania z serwisu. Nie kupujemy ani nie pozyskujemy Twoich danych z innych źródeł.`,`We process only the data you provide to us yourself, plus limited technical data collected automatically while you use the website. We do not buy or obtain your data from other sources.`],
+    [`a) Formularz „Pobierz bezpłatny prospekt"`,`a) "Download the free brochure" form`],
+    [`imię i nazwisko,`,`full name,`],
+    [`służbowy adres e-mail,`,`work email address,`],
+    [`nazwa firmy oraz stanowisko,`,`company name and position,`],
+    [`liczba pracowników (przedział) oraz obszar zainteresowania — dane opcjonalne, pomagające dopasować ofertę.`,`number of employees (range) and area of interest — optional data that help tailor the offer.`],
+    [`b) Formularz umówienia konsultacji telefonicznej`,`b) Phone consultation booking form`],
+    [`adres e-mail,`,`email address,`],
+    [`numer telefonu,`,`phone number,`],
+    [`nazwa firmy (opcjonalnie),`,`company name (optional),`],
+    [`preferowana data oraz pora kontaktu.`,`preferred date and time of contact.`],
+    [`c) Dane zbierane automatycznie`,`c) Data collected automatically`],
+    [`dane techniczne zapisywane w logach serwera (adres IP, data i godzina zapytania, typ przeglądarki) — niezbędne do zapewnienia bezpieczeństwa i prawidłowego działania serwisu,`,`technical data stored in server logs (IP address, date and time of the request, browser type) — necessary to ensure the security and proper operation of the website,`],
+    [`informacje przechowywane lokalnie w Twojej przeglądarce (pamięć`,`information stored locally in your browser (`],
+    [`) — np. zapamiętana pozycja na stronie czy ostatnie ustawienia kalkulatora; dane te nie są przesyłane na nasz serwer (zob. punkt 11).`,`) — e.g. a remembered scroll position or the latest calculator settings; this data is not sent to our server (see point 11).`],
+    [`Kalkulator korzyści`,`The benefits calculator`],
+    [`działa w całości w Twojej przeglądarce. Wprowadzane w nim wartości (np. liczba pracowników, wynagrodzenie) służą wyłącznie do obliczeń po Twojej stronie i`,`runs entirely in your browser. The values entered (e.g. number of employees, salary) are used solely for calculations on your side and`],
+    [`nie są do nas przesyłane ani zapisywane`,`are not sent to or stored by us`],
+    [`, dopóki samodzielnie nie wyślesz formularza.`,`until you submit a form yourself.`],
+    [`Prosimy o niepodawanie w formularzach danych szczególnych kategorii (np. dotyczących zdrowia) — nie są nam one potrzebne i ich nie zbieramy.`,`Please do not provide special categories of data (e.g. health data) in the forms — we do not need them and do not collect them.`],
+    [`Cele i podstawy prawne przetwarzania`,`Purposes and legal bases of processing`],
+    [`Każdą operację na Twoich danych opieramy na konkretnej podstawie prawnej wynikającej z art. 6 RODO:`,`We base each operation on your data on a specific legal basis under Article 6 of the GDPR:`],
+    [`Cel przetwarzania`,`Purpose of processing`],
+    [`Podstawa prawna`,`Legal basis`],
+    [`Przesłanie prospektu PDF`,`Sending the PDF brochure`],
+    [`oraz odpowiedź na zapytanie złożone przez formularz`,`and responding to an enquiry submitted via the form`],
+    [`podjęcie działań na żądanie osoby przed zawarciem umowy oraz nasz prawnie uzasadniony interes (obsługa zapytania)`,`taking steps at the data subject's request prior to entering into a contract, and our legitimate interest (handling the enquiry)`],
+    [`art. 6 ust. 1 lit. b i f`,`Art. 6(1)(b) and (f)`],
+    [`Umówienie i przeprowadzenie konsultacji telefonicznej`,`Arranging and holding a phone consultation`],
+    [`podjęcie działań na żądanie osoby przed zawarciem umowy`,`taking steps at the data subject's request prior to entering into a contract`],
+    [`Marketing własnych usług`,`Marketing of our own services`],
+    [`(np. kontakt handlowy, informacje o programie)`,`(e.g. sales contact, information about the programme)`],
+    [`nasz prawnie uzasadniony interes, a w zakresie komunikacji elektronicznej i telefonicznej — Twoja zgoda`,`our legitimate interest, and for electronic and telephone communication — your consent`],
+    [`art. 6 ust. 1 lit. f / lit. a`,`Art. 6(1)(f) / (a)`],
+    [`Ustalenie, dochodzenie lub obrona roszczeń`,`Establishing, pursuing or defending claims`],
+    [`nasz prawnie uzasadniony interes`,`our legitimate interest`],
+    [`Realizacja obowiązków prawnych`,`Fulfilling legal obligations`],
+    [`(np. podatkowych, rachunkowych — gdy dojdzie do współpracy)`,`(e.g. tax, accounting — if cooperation begins)`],
+    [`obowiązek prawny ciążący na administratorze`,`a legal obligation on the controller`],
+    [`Zapewnienie bezpieczeństwa i prawidłowego działania serwisu`,`Ensuring the security and proper operation of the website`],
+    [`Jeżeli przetwarzanie odbywa się na podstawie zgody, możesz ją w każdej chwili wycofać — bez wpływu na zgodność z prawem przetwarzania dokonanego przed jej wycofaniem.`,`If processing is based on consent, you can withdraw it at any time — without affecting the lawfulness of processing carried out before its withdrawal.`],
+    [`Okres przechowywania danych`,`Data retention period`],
+    [`dane z zapytań i konsultacji, które nie zakończyły się współpracą — przez okres niezbędny do obsługi zapytania, a następnie do`,`data from enquiries and consultations that did not result in cooperation — for the period necessary to handle the enquiry, and then for up to`],
+    [`12 miesięcy`,`12 months`],
+    [`dla celów kontaktu handlowego, chyba że wcześniej zgłosisz sprzeciw lub cofniesz zgodę;`,`for sales contact purposes, unless you object or withdraw consent earlier;`],
+    [`dane przetwarzane na podstawie zgody — do czasu jej wycofania;`,`data processed on the basis of consent — until it is withdrawn;`],
+    [`dane związane z zawartą umową — przez czas jej trwania, a po jej zakończeniu przez okres przedawnienia roszczeń oraz wymagany przepisami prawa (np. podatkowymi);`,`data related to a concluded contract — for its duration, and after it ends for the limitation period for claims and as required by law (e.g. tax law);`],
+    [`logi serwera — przez okres niezbędny dla bezpieczeństwa, zwykle nie dłużej niż`,`server logs — for the period necessary for security, usually no longer than`],
+    [`Twoje dane możemy powierzać zaufanym podmiotom przetwarzającym, które działają na nasze zlecenie i wyłącznie zgodnie z naszymi instrukcjami, na podstawie umów powierzenia przetwarzania danych. Należą do nich w szczególności:`,`We may entrust your data to trusted processors acting on our behalf and solely in accordance with our instructions, under data-processing agreements. These include in particular:`],
+    [`dostawca hostingu i infrastruktury serwerowej, na której działa serwis,`,`the provider of hosting and server infrastructure on which the website runs,`],
+    [`dostawca poczty elektronicznej oraz narzędzi do obsługi korespondencji i kontaktów (CRM),`,`the provider of email and tools for handling correspondence and contacts (CRM),`],
+    [`podmioty świadczące dla nas usługi księgowe, prawne lub doradcze — w niezbędnym zakresie,`,`entities providing us with accounting, legal or advisory services — to the extent necessary,`],
+    [`wyspecjalizowany operator programu — wyłącznie w zakresie koniecznym do przygotowania i realizacji oferty, po nawiązaniu kontaktu.`,`the specialised programme operator — only to the extent necessary to prepare and deliver the offer, after contact is made.`],
+    [`Nie sprzedajemy i nie udostępniamy Twoich danych innym podmiotom dla ich własnych celów marketingowych.`,`We do not sell or share your data with other entities for their own marketing purposes.`],
+    [`Przekazywanie danych poza EOG`,`Transfers of data outside the EEA`],
+    [`Co do zasady przetwarzamy dane na terenie Europejskiego Obszaru Gospodarczego (EOG). Jeżeli któryś z naszych dostawców usług (np. poczty lub narzędzi analitycznych) przetwarza dane poza EOG, następuje to wyłącznie przy zapewnieniu odpowiednich zabezpieczeń wymaganych przez RODO — w szczególności na podstawie`,`As a rule, we process data within the European Economic Area (EEA). If any of our service providers (e.g. email or analytics tools) processes data outside the EEA, this happens only with the appropriate safeguards required by the GDPR — in particular on the basis of`],
+    [`standardowych klauzul umownych`,`standard contractual clauses`],
+    [`zatwierdzonych przez Komisję Europejską lub decyzji o odpowiednim stopniu ochrony. Kopię stosowanych zabezpieczeń możesz uzyskać, kontaktując się z nami.`,`approved by the European Commission or an adequacy decision. You can obtain a copy of the safeguards applied by contacting us.`],
+    [`W związku z przetwarzaniem danych przysługują Ci następujące prawa:`,`In connection with the processing of data, you have the following rights:`],
+    [`Dostęp do danych`,`Access to data`],
+    [`Prawo do uzyskania informacji, czy i jakie dane przetwarzamy, oraz do otrzymania ich kopii.`,`The right to obtain information on whether and what data we process, and to receive a copy of it.`],
+    [`Sprostowanie`,`Rectification`],
+    [`Prawo do poprawienia danych nieprawidłowych oraz uzupełnienia niekompletnych.`,`The right to correct inaccurate data and complete incomplete data.`],
+    [`Usunięcie („prawo do bycia zapomnianym")`,`Erasure ("right to be forgotten")`],
+    [`Prawo do żądania usunięcia danych, gdy nie ma podstaw do ich dalszego przetwarzania.`,`The right to request erasure of data when there is no basis for further processing.`],
+    [`Ograniczenie przetwarzania`,`Restriction of processing`],
+    [`Prawo do żądania wstrzymania przetwarzania danych w określonych sytuacjach.`,`The right to request that processing be suspended in certain situations.`],
+    [`Przenoszenie danych`,`Data portability`],
+    [`Prawo do otrzymania danych w ustrukturyzowanym formacie i przekazania ich innemu administratorowi.`,`The right to receive data in a structured format and transfer it to another controller.`],
+    [`Sprzeciw`,`Objection`],
+    [`Prawo do sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie, w tym wobec marketingu bezpośredniego.`,`The right to object to processing based on legitimate interest, including direct marketing.`],
+    [`Cofnięcie zgody`,`Withdrawal of consent`],
+    [`Prawo do wycofania zgody w dowolnym momencie, bez wpływu na wcześniejsze przetwarzanie.`,`The right to withdraw consent at any time, without affecting earlier processing.`],
+    [`Skarga do organu nadzorczego`,`Complaint to the supervisory authority`],
+    [`Prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (PUODO).`,`The right to lodge a complaint with the President of the Personal Data Protection Office (PUODO).`],
+    [`Aby skorzystać z powyższych praw, skontaktuj się z nami pod adresem`,`To exercise the above rights, contact us at`],
+    [`. Odpowiemy bez zbędnej zwłoki, najpóźniej w ciągu miesiąca. Organ nadzorczy:`,`. We will respond without undue delay, within one month at the latest. Supervisory authority:`],
+    [`, ul. Stawki 2, 00-193 Warszawa.`,`, 2 Stawki St., 00-193 Warsaw.`],
+    [`Podanie danych jest`,`Providing data is`],
+    [`dobrowolne`,`voluntary`],
+    [`, jednak niezbędne do realizacji wybranego działania — bez podania danych oznaczonych jako wymagane nie będziemy mogli przesłać prospektu ani umówić konsultacji. Dane opcjonalne (np. liczba pracowników, obszar zainteresowania) pomagają nam lepiej dopasować odpowiedź, ale ich podanie nie jest konieczne.`,`, but necessary to carry out the chosen action — without providing the data marked as required, we will not be able to send the brochure or arrange a consultation. Optional data (e.g. number of employees, area of interest) help us tailor our response better, but providing it is not mandatory.`],
+    [`Profilowanie i automatyczne decyzje`,`Profiling and automated decisions`],
+    [`Nie podejmujemy wobec Ciebie decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu (w tym profilowaniu), które wywoływałyby wobec Ciebie skutki prawne lub w podobny sposób istotnie na Ciebie wpływały. Kalkulator korzyści dokonuje jedynie poglądowych obliczeń po Twojej stronie i nie służy do oceny Twojej osoby.`,`We do not make decisions about you based solely on automated processing (including profiling) that would produce legal effects concerning you or similarly significantly affect you. The benefits calculator only performs indicative calculations on your side and is not used to assess you.`],
+    [`Pliki cookies i pamięć lokalna`,`Cookies and local storage`],
+    [`Serwis korzysta z technologii niezbędnych do jego prawidłowego działania:`,`The website uses technologies necessary for its proper operation:`],
+    [`Cookies / pamięć lokalna niezbędne i funkcjonalne`,`Essential and functional cookies / local storage`],
+    [`— zapewniają podstawowe działanie serwisu oraz zapamiętują Twoje wybory (np. pozycję na stronie, ustawienia kalkulatora). Ich stosowanie nie wymaga zgody.`,`— provide the basic operation of the website and remember your choices (e.g. scroll position, calculator settings). Their use does not require consent.`],
+    [`Cookies analityczne i marketingowe`,`Analytics and marketing cookies`],
+    [`— stosujemy je wyłącznie po wyrażeniu przez Ciebie zgody. Jeśli takie narzędzia zostaną uruchomione, poprosimy Cię o zgodę za pomocą baneru cookies, a szczegóły znajdziesz w tej Polityce.`,`— we use them only after you give consent. If such tools are activated, we will ask for your consent via a cookie banner, and details will be provided in this Policy.`],
+    [`W każdej chwili możesz zarządzać plikami cookies oraz pamięcią lokalną z poziomu ustawień swojej przeglądarki — w tym je usunąć lub zablokować. Ograniczenie plików niezbędnych może wpłynąć na działanie serwisu.`,`You can manage cookies and local storage at any time from your browser settings — including deleting or blocking them. Restricting essential files may affect how the website works.`],
+    [`Bezpieczeństwo danych`,`Data security`],
+    [`Stosujemy odpowiednie środki techniczne i organizacyjne, aby chronić Twoje dane przed nieuprawnionym dostępem, utratą czy zniszczeniem — m.in. szyfrowanie połączenia (SSL/TLS), ograniczenie dostępu do danych wyłącznie do osób upoważnionych oraz zabezpieczenie antyspamowe formularzy. Środki te dostosowujemy do poziomu ryzyka.`,`We apply appropriate technical and organisational measures to protect your data against unauthorised access, loss or destruction — including connection encryption (SSL/TLS), restricting data access to authorised persons only, and anti-spam protection of forms. We adjust these measures to the level of risk.`],
+    [`Zmiany Polityki prywatności`,`Changes to the Privacy Policy`],
+    [`Politykę możemy aktualizować, gdy zmienią się przepisy, technologie lub zakres naszych usług. Aktualna wersja jest zawsze dostępna na tej stronie, a datę ostatniej aktualizacji wskazujemy na jej początku. Zachęcamy do okresowego sprawdzania tej strony.`,`We may update the Policy when laws, technologies or the scope of our services change. The current version is always available on this page, and the date of the last update is shown at the top. We encourage you to check this page periodically.`],
+    [`Zobacz także:`,`See also:`],
+    [`Klauzula informacyjna RODO (art. 13)`,`GDPR information clause (Art. 13)`]
+  ];
+  var DICT = {}; PAIRS.forEach(function(p){ DICT[p[0]] = p[1]; });
+
+  function skip(node){
+    var p = node.parentNode; if(!p) return true;
+    var nn = p.nodeName;
+    if(nn==='SCRIPT'||nn==='STYLE'||nn==='NOSCRIPT') return true;
+    if(p.closest && p.closest('[data-no-i18n]')) return true;
+    return false;
+  }
+  function translateText(lang){
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    var nodes=[], n; while(n=w.nextNode()){ if(n.nodeValue.trim() && !skip(n)) nodes.push(n); }
+    nodes.forEach(function(node){
+      if(node.__pl===undefined) node.__pl=node.nodeValue;
+      var key=node.__pl.trim();
+      node.nodeValue = (lang==='en' && DICT[key]!==undefined) ? node.__pl.replace(key, DICT[key]) : node.__pl;
+    });
+  }
+  function applyLang(lang){
+    window.LANG=lang;
+    try{ localStorage.setItem('sh_lang', lang); }catch(e){}
+    document.documentElement.setAttribute('lang', lang);
+    translateText(lang);
+    var t=document.title;
+    if(/Polityka|Privacy/.test(t)) document.title = (lang==='en')?'Privacy Policy — Shared Hotels':'Polityka prywatności — Shared Hotels';
+    else document.title = (lang==='en')?'GDPR — Information clause — Shared Hotels':'RODO — Klauzula informacyjna — Shared Hotels';
+    var nav=document.getElementById('langToggle'); if(nav) nav.textContent=(lang==='en')?'PL':'EN';
+    document.querySelectorAll('[data-lang-opt]').forEach(function(s){
+      s.style.opacity=(s.getAttribute('data-lang-opt')===lang)?'1':'.4';
+      s.style.fontWeight=(s.getAttribute('data-lang-opt')===lang)?'600':'400';
+    });
+  }
+  window.setLang=applyLang;
+
+  function buildToggles(){
+    var nav=document.querySelector('nav');
+    var back=document.querySelector('.nav-back');
+    if(nav && back && !document.getElementById('langToggle')){
+      var group=document.createElement('div');
+      group.style.cssText='display:flex;align-items:center;gap:1.3rem;';
+      nav.insertBefore(group, back);
+      var a=document.createElement('a');
+      a.id='langToggle'; a.href='javascript:void(0)'; a.setAttribute('data-no-i18n','');
+      a.style.cssText='font-family:var(--font-mono,monospace);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone,#6e6e66);cursor:pointer;text-decoration:none;';
+      a.addEventListener('click',function(){ applyLang(window.LANG==='en'?'pl':'en'); });
+      group.appendChild(a);
+      group.appendChild(back);
+    }
+    var foot=[].slice.call(document.querySelectorAll('footer span')).filter(function(s){return /PL\s*\/\s*EN/.test(s.textContent);})[0];
+    if(foot){
+      foot.setAttribute('data-no-i18n','');
+      foot.innerHTML='<span data-lang-opt="pl" style="cursor:pointer">PL</span> / <span data-lang-opt="en" style="cursor:pointer">EN</span>';
+      foot.querySelector('[data-lang-opt=pl]').addEventListener('click',function(){ applyLang('pl'); });
+      foot.querySelector('[data-lang-opt=en]').addEventListener('click',function(){ applyLang('en'); });
+    }
+  }
+  function init(){
+    buildToggles();
+    var saved='pl'; try{ saved=localStorage.getItem('sh_lang')||'pl'; }catch(e){}
+    applyLang(saved);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
 </body>
 </html>
