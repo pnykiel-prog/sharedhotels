@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="pl" translate="no">
+<html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="google" content="notranslate">
-<meta name="robots" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RODO — Klauzula informacyjna — Shared Hotels</title>
 <meta name="description" content="Klauzula informacyjna RODO (art. 13) serwisu Shared Hotels — administrator, cele, podstawy prawne i prawa osób, których dane dotyczą.">
@@ -394,9 +392,9 @@ footer{background:#111110;padding:2.4rem 6%;display:flex;align-items:center;just
       node.nodeValue = (lang==='en' && DICT[key]!==undefined) ? node.__pl.replace(key, DICT[key]) : node.__pl;
     });
   }
-  function applyLang(lang){
+  function applyLang(lang, persist){
     window.LANG=lang;
-    try{ localStorage.setItem('sh_lang', lang); }catch(e){}
+    if(persist!==false){ try{ localStorage.setItem('sh_lang', lang); }catch(e){} }
     document.documentElement.setAttribute('lang', lang);
     translateText(lang);
     var t=document.title;
@@ -432,10 +430,17 @@ footer{background:#111110;padding:2.4rem 6%;display:flex;align-items:center;just
       foot.querySelector('[data-lang-opt=en]').addEventListener('click',function(){ applyLang('en'); });
     }
   }
+  function detectLang(){
+    var s=null; try{ s=localStorage.getItem('sh_lang'); }catch(e){}
+    if(s==='pl'||s==='en') return { lang:s, persist:true };
+    var langs=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||'en'];
+    var isPl=langs.some(function(l){ return /^pl\b/i.test(l||''); });
+    return { lang: isPl?'pl':'en', persist:false };
+  }
   function init(){
     buildToggles();
-    var saved='pl'; try{ saved=localStorage.getItem('sh_lang')||'pl'; }catch(e){}
-    applyLang(saved);
+    var d=detectLang();
+    applyLang(d.lang, d.persist);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
   else init();

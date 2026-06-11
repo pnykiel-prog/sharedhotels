@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="pl" translate="no">
+<html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="google" content="notranslate">
-<meta name="robots" content="notranslate">
 <script>
   /* Zapobiega automatycznemu przewijaniu strony do zapamiętanej pozycji
      (np. na sam dół) przy wejściu lub odświeżeniu na serwerze. */
@@ -1491,9 +1489,9 @@ window.addEventListener('pageshow', function(e) {
     });
   }
 
-  function applyLang(lang){
+  function applyLang(lang, persist){
     window.LANG = lang;
-    try{ localStorage.setItem('sh_lang', lang); }catch(e){}
+    if(persist!==false){ try{ localStorage.setItem('sh_lang', lang); }catch(e){} }
     document.documentElement.setAttribute('lang', lang);
     translateText(lang);
     document.title = (lang==='en') ? META.titleEN : META.titlePL;
@@ -1648,11 +1646,17 @@ window.addEventListener('pageshow', function(e) {
     }
   }
 
+  function detectLang(){
+    var s=null; try{ s=localStorage.getItem('sh_lang'); }catch(e){}
+    if(s==='pl'||s==='en') return { lang:s, persist:true };          // wcześniejszy ręczny wybór
+    var langs=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||'en'];
+    var isPl=langs.some(function(l){ return /^pl\b/i.test(l||''); });
+    return { lang: isPl?'pl':'en', persist:false };                  // auto-detekcja przeglądarki
+  }
   function init(){
     buildToggles();
-    var saved = 'pl';
-    try{ saved = localStorage.getItem('sh_lang') || 'pl'; }catch(e){}
-    applyLang(saved);
+    var d=detectLang();
+    applyLang(d.lang, d.persist);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
   else init();
