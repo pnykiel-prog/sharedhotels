@@ -32,12 +32,12 @@ body{font-family:var(--font-body);background:var(--white);color:var(--charcoal);
 a{color:var(--teal-dark);text-decoration:none;border-bottom:1px solid rgba(13,80,64,.25);transition:border-color .2s,color .2s;}
 a:hover{color:var(--teal);border-color:var(--teal);}
 
-nav{position:sticky;top:0;z-index:100;background:rgba(254,254,254,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--sand-dark);padding:0 6%;height:72px;display:flex;align-items:center;justify-content:space-between;}
+nav{position:sticky;top:0;z-index:100;background:#092b21;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);padding:0 6%;height:72px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{display:flex;align-items:center;gap:.7rem;border:none;}
-.nav-emblem{height:48px;width:auto;display:block;flex-shrink:0;}
+.nav-logo-img{height:44px;width:auto;display:block;flex-shrink:0;}
 .nav-logo-text{font-family:var(--font-display);font-size:1.3rem;font-weight:600;color:var(--teal-dark);letter-spacing:.04em;white-space:nowrap;}
-.nav-back{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);border:none;display:flex;align-items:center;gap:.5rem;}
-.nav-back:hover{color:var(--teal-dark);}
+.nav-back{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);border:none;display:flex;align-items:center;gap:.5rem;}
+.nav-back:hover{color:var(--white);}
 
 header.doc-head{background:var(--charcoal);color:var(--white);padding:4.5rem 6% 3.8rem;position:relative;overflow:hidden;}
 header.doc-head::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 18% 0%,rgba(26,122,92,.22) 0%,transparent 62%);pointer-events:none;}
@@ -77,25 +77,26 @@ section.clause:first-of-type{border-top:none;margin-top:0;padding-top:0;}
 .callout a{color:var(--teal-deep);font-weight:500;}
 
 footer{background:#111110;padding:2.4rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-.footer-logo{font-family:var(--font-display);font-size:1rem;color:rgba(255,255,255,.32);}
+.footer-logo img{height:32px;width:auto;display:block;opacity:.85;}
 .footer-links{display:flex;gap:2rem;}
 .footer-links a{font-size:.78rem;color:rgba(255,255,255,.32);border:none;letter-spacing:.04em;}
 .footer-links a:hover{color:rgba(255,255,255,.7);}
 
 @media(max-width:600px){
   .rights-list{grid-template-columns:1fr;}
-  .nav-logo-text{display:none;}
+  .nav-logo-img{height:38px;}
   .controller-grid{grid-template-columns:1fr;gap:.15rem .4rem;}
   .controller-grid dt{padding-top:.6rem;}
 }
+#langToggle{color:rgba(255,255,255,.6)!important;}
+.nav-logo{border:none!important;}
 </style>
 </head>
 <body>
 
 <nav>
   <a class="nav-logo" href="index.html" aria-label="Shared Hotels — strona główna">
-    <img class="nav-emblem" src="assets/sh-emblem.png" alt="">
-    <span class="nav-logo-text">Shared Hotels</span>
+    <img class="nav-logo-img" src="assets/logo.png" alt="Shared Hotels Benefits">
   </a>
   <a class="nav-back" href="index.html">← Powrót na stronę główną</a>
 </nav>
@@ -185,7 +186,7 @@ footer{background:#111110;padding:2.4rem 6%;display:flex;align-items:center;just
 </div>
 
 <footer>
-  <div class="footer-logo">Shared Hotels</div>
+  <div class="footer-logo"><img src="assets/logo.png" alt="Shared Hotels Benefits"></div>
   <div class="footer-links">
     <a href="polityka-prywatnosci.html">Polityka prywatności</a>
     <a href="rodo.html">RODO</a>
