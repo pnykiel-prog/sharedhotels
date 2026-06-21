@@ -361,6 +361,12 @@ nav.scrolled .nav-cta:hover{background:var(--teal-dark);color:var(--white);}
 .calc-tagline{font-size:.82rem;color:var(--stone);line-height:1.75;max-width:700px;margin-bottom:.5rem;}
 .calc-note-employer{background:var(--teal-light);border-left:2px solid var(--teal);padding:1rem 1.5rem;font-family:var(--font-display);font-size:.95rem;color:var(--teal-dark);line-height:1.6;font-style:italic;margin-bottom:2.5rem;max-width:700px;}
 .calc-box{background:var(--white);border:1px solid var(--sand-dark);padding:3rem;}
+@media(min-width:1000px){
+  .calc-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1.6rem;align-items:start;}
+  .calc-grid .calc-box{margin:0;min-width:0;}
+  .calc-grid .calc-results{margin-top:0;position:sticky;top:80px;align-self:start;min-width:0;}
+  .calc-grid .calc-results .calc-tiles{grid-template-columns:1fr 1fr;}
+}
 .calc-section{margin-bottom:2rem;}
 .calc-section-label{font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-bottom:.9rem;display:block;}
 .calc-toggle-row{display:flex;gap:.5rem;flex-wrap:wrap;}
@@ -849,6 +855,7 @@ footer{background:#111110;padding:2rem 6%;display:flex;align-items:center;justif
     <div class="calc-note-employer reveal">"Zobacz ile dzięki programowi SH zyska Twój pracownik — a razem z nim Twoja firma. Wzrost lojalności, mniejsza absencja, niższe koszty rotacji i silniejszy wizerunek pracodawcy to korzyści, których nie da się wpisać w jedną liczbę, ale da się je poczuć w każdym raporcie HR."</div>
   </div>
 
+  <div class="calc-grid">
   <div class="calc-box reveal">
     <!-- PROFIL -->
     <div class="calc-section">
@@ -961,6 +968,7 @@ footer{background:#111110;padding:2rem 6%;display:flex;align-items:center;justif
       <p class="calc-emp-text" id="cr-employer-text">Pracownik zyskuje realną wartość — Ty zyskujesz lojalność. Program generuje <strong>mierzalne dane o zaangażowaniu</strong>, pozwala na <strong>równomierne planowanie urlopów</strong> i dostarcza <strong>konkretny wskaźnik ESG</strong> do raportu zarządu.</p>
     </div>
   </div>
+  </div><!-- /calc-grid -->
   <p class="calc-disclaimer">Stawki za noc i ceny są poglądowe — ostateczne kwoty zależą od konkretnych obiektów i bieżących cen. Wynik to szacunek, nie oferta. Traktowanie podatkowe (zwolnienie z PIT dopłaty do wypoczynku dzieci, limity dla dorosłych) zależy od formy świadczenia i wymaga potwierdzenia z doradcą; operator musi być zarejestrowany jako organizator wypoczynku, aby część dziecięca korzystała ze zwolnienia bez limitu. Dopłatę pracodawcy z ZFŚS rozkłada się na 5 lat; termin bonu (10 lub 15 lat) to czas korzystania z wakacji i jest niezależny od okresu spłaty. Stan na 2026.</p>
 </section>
 
