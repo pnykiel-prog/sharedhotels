@@ -217,6 +217,11 @@ nav.scrolled .nav-link:hover{color:var(--teal-mid);}
 nav.scrolled .nav-cta{background:var(--teal);border-color:var(--teal);}
 .nav-cta:hover{background:var(--white);color:var(--teal-dark);}
 nav.scrolled .nav-cta:hover{background:var(--teal-dark);color:var(--white);}
+.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:0;background:none;border:none;cursor:pointer;z-index:101;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:transform .3s,opacity .3s;}
+nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+nav.nav-open .nav-toggle span:nth-child(2){opacity:0;}
+nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* HERO */
 #hero{min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 0 0;background:var(--charcoal);overflow:hidden;}
@@ -509,7 +514,13 @@ footer{background:#111110;padding:2rem 6%;display:flex;align-items:center;justif
   .calc-box{padding:2rem 1.5rem;}
   .calc-results{padding:2rem 1.5rem;}
 }
-@media(max-width:700px){.nav-links .nav-link{display:none;}.how-steps-h{grid-template-columns:1fr;}#hero{padding:8rem 0 0;}.hero-ctas{flex-direction:column;align-items:center;gap:.6rem;}.hero-cta-primary,.hero-cta-secondary{width:100%;max-width:320px;text-align:center;}
+@media(max-width:700px){
+  .nav-toggle{display:flex;}
+  .nav-links{position:fixed;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#092b21;padding:.5rem 6% 1.4rem;border-top:1px solid rgba(255,255,255,.08);box-shadow:0 14px 28px rgba(0,0,0,.35);transform:translateY(-12px);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s;}
+  nav.nav-open .nav-links{transform:translateY(0);opacity:1;pointer-events:auto;}
+  .nav-links .nav-link{display:block;padding:.95rem .2rem;font-size:.95rem;color:rgba(255,255,255,.82);border-bottom:1px solid rgba(255,255,255,.07);}
+  .nav-links .nav-cta{display:block;text-align:center;margin-top:1.1rem;padding:.95rem 1.3rem;}
+  .how-steps-h{grid-template-columns:1fr;}#hero{padding:8rem 0 0;}.hero-ctas{flex-direction:column;align-items:center;gap:.6rem;}.hero-cta-primary,.hero-cta-secondary{width:100%;max-width:320px;text-align:center;}
   .pain-grid,.product-grid{grid-template-columns:1fr;}
   .benefits-grid{grid-template-columns:1fr;}
   .f-row{grid-template-columns:1fr;}
@@ -609,13 +620,14 @@ footer{background:#111110;padding:2rem 6%;display:flex;align-items:center;justif
 
 <nav id="navbar" role="navigation" aria-label="Główna nawigacja">
   <a class="nav-logo" href="#" aria-label="Shared Hotels Benefits"><img class="nav-logo-img" src="assets/logo.png" alt="Shared Hotels Benefits"></a>
-  <div class="nav-links">
+  <div class="nav-links" id="navMenu">
     <a href="#audience" class="nav-link">Dla kogo</a>
     <a href="#how" class="nav-link">Jak działa</a>
     <a href="#calc" class="nav-link">Kalkulator</a>
     <a href="#faq" class="nav-link">FAQ</a>
     <a href="#form" class="nav-cta">Pobierz prospekt</a>
   </div>
+  <button id="navToggle" class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
@@ -1129,6 +1141,20 @@ footer{background:#111110;padding:2rem 6%;display:flex;align-items:center;justif
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
 });
+
+// MOBILE MENU (hamburger)
+(function(){
+  var navEl=document.getElementById('navbar');
+  var navToggle=document.getElementById('navToggle');
+  if(!navEl||!navToggle) return;
+  function setOpen(open){
+    navEl.classList.toggle('nav-open',open);
+    navToggle.setAttribute('aria-expanded',open?'true':'false');
+  }
+  navToggle.addEventListener('click',function(){ setOpen(!navEl.classList.contains('nav-open')); });
+  navEl.querySelector('.nav-links').addEventListener('click',function(e){ if(e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') setOpen(false); });
+})();
 
 // REVEAL
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.07,rootMargin:'0px 0px -20px 0px'});
